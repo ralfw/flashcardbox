@@ -101,14 +101,14 @@ Notation:
 
 ## Functions
 ```
-class Teacher {
-    public int Select_due_bin(BinInfo[] bins) {...}
+interface ITeacher {
+    public int Select_due_bin(IBinInfo[] bins);
 }
 
-class BinInfo {
+interface IBinInfo {
     public bool IsDue {get;}
-    public int Capacity {get;}
-    public int DueThreshold {get;}
+    public int Capacity {get;} // could be called UpperDueThreshold
+    public int DueThreshold {get;} // could be called LowerDueThreshold‚
     public int Count {get;}
 }
 ```
