@@ -1,0 +1,795 @@
+Pronomen + _sein_	Аз съм
+ Ти си
+ Той е, Тя е, То е
+ Ние сме
+ Вие сте
+ Те са
+$$
+Guten Tag!	Добър ден!
+$$
+Hallo!	Здравейте! (förmlich)
+ Здравей!
+$$
+Gibt es…?
+
+Gibt es ein freies Zimmer?
+Ja, gibt es.	Има ли…
+ 
+ Има ли свободна стая?
+ 
+ Да, има.
+$$
+Gibt es nicht / There aren't	няма
+ 
+ Не, няма!
+$$
+freies Apartment	свободен апартамент
+$$
+Sind Sie ein Tourist? Nein, ich bin kein Tourist. Ich bin Geschäftsmann.	Турист ли сте?
+ Не, не съм турист.
+ Бизнесмен съм.
+$$
+Name	име
+$$
+You are welcome	Моля
+$$
+Bitte! | Wie bitte? | Pardon?	Моля!
+ Моля?
+$$
+Here you are / There you go	заповядайте (formell)
+ заповядай
+$$
+Wie heißen Sie? Ich heiße...	Как се казвате? (formell) / Как се казваш?
+ Казвам се…
+ 
+ Казвам се Ралф Вестфал.
+$$
+Are you English? Yes, I’m English.	Англичанин ли сте?
+ Да, англичанин (англичанка) съм.
+$$
+Amerikaner(in)	американец
+ американка
+$$
+Kanadier(in)	канадец
+ канадка
+$$
+Deutscher	немец
+ германец
+$$
+Deutschland | aus Deutschland	германия
+ 
+ от германия
+$$
+Pass	паспорта
+$$
+Danke	благодария
+ мерси
+$$
+Woher (kommen Sie?)	Откъде (сте?)
+ 
+ Откъде си? (informell)
+$$
+Wo	къде
+$$
+Wie / Wie geht es Ihnen?	Как
+ 
+ Как сте?
+ Как си?
+$$
+Mir geht es gut	Добре съм
+ 
+ Аз съм добре
+$$
+Und Ihnen? (als Antwort auf: Wie geht es Ihnen?)	А Вие?
+ 
+ А ти? (informell)
+$$
+Guten Morgen / Guten Abend	добро утро
+ Добър бечер
+$$
+Mann / Frau
+
+
+
+
+
+	мъж (m)
+ жена (f)
+$$
+Bulgare/in	българин (m)
+ българка (f)
+$$
+Museum	музей (m)
+$$
+Kaffee, Café	кафе (n)
+$$
+Menü, Speisekarte	меню (n)
+$$
+Brief	писмо (n)
+$$
+Meer	море (n)
+$$
+Taxi	такси (n)
+$$
+Platz	място (n)
+$$
+Ich bin frei (m/f)	Свободен съм (m)
+ Свободна съм (f)
+ 
+ Da Adjektiv richtet sich nach dem Geschlecht des Sprechenden.
+$$
+Gut aussehend	хубав
+ хубава
+ хубаво
+$$
+Fluss	река (f)
+ 
+ Има ли река в лондон?
+$$
+Adresse	адрес (m)
+$$
+Bank	банка
+$$
+Bier	бира
+$$
+Computer	компютър
+$$
+Show	шоу
+$$
+Musik	музика
+$$
+Kalender	календар
+$$
+Problem	проблем
+$$
+Sport	спорт
+$$
+Firma	фирма
+$$
+Fußball	футбол
+$$
+Chauffeur	шофьор
+$$
+Drucker	принтер
+$$
+Büro	офис
+$$
+Video	видео
+$$
+Wörterbuch	речник
+$$
+Wochenende	уикенд
+$$
+angenehm, pleasant, nice	приятен
+$$
+beautiful, lovely, pretty, nice	хубав
+ 
+ хубав хотел
+ 
+ хубаво море
+$$
+Aufgabe, Übung	упражнение
+$$
+Dies	това (n)
+този (m)
+тази (f)
+
+това кафе
+този ресторант
+тази жена
+$$
+Bitte, gern geschehen.	Моля, няма защо.
+$$
+Ich hätte gern...	Бих искал...
+$$
+to want / wollen	искам
+ 
+ искаш
+ иска
+ искаме
+ искате
+ искат
+$$
+Mineralwasser	минерална вода
+$$
+Limonade	лимонада
+$$
+Tee	чай
+$$
+oder	или
+$$
+reisen	пътувам
+$$
+verlassen, abreisen	тръгвам
+$$
+später	после
+$$
+(superlativ bilden)	най-…
+ 
+ най-после
+$$
+endlich	най-после
+$$
+ich auch / me too
+
+Ich mag auch reisen.	и аз (am Satzanfang)
+
+И аз обичам да пътувам.
+$$
+Herr / Frau /Fräulein	господин
+ госпожа
+ госпожица
+$$
+auch
+
+Sie sind auch hier.	също
+
+Те също са тук.
+$$
+viel, sehr	много
+$$
+werden	ставам
+$$
+Student(in)	студент
+ студентка
+$$
+...ам Konjugation (reisen)	ам, аш, а, аме, ате, ат
+ 
+Пътувам Пътуваш Пътува Пътуваме Пътувате Пътуват
+$$
+haben	имам
+ 
+ имаш ли ябълки?
+$$
+wollen	искам
+ 
+ Ще искам 1 килограм ябълки
+ Ще искам …, моля.
+$$
+Futur-partikel	ще 
+ ще пътувам за Софиа
+$$
+Ich würde gern… (formal)	Бих искал…
+ 
+ Бих искал една пържола, моля.
+$$
+Steak / Schnitzel	пържола
+$$
+Grammatik: Vokativ	When a person or object is being addressed, a special form, called the  vocative, is used. The endings are -e for masculine nouns and -o (or -e) for feminine nouns. Here are examples of the most frequently used vocative forms, those for the  nouns meaning Mr., Mrs. and Miss. Note that the accent changes place in the
+vocative of госпожа (госпожо!).
+ 
+ господин / господин-е
+ госпожа / госпож-о
+ госпожица / госпожиц-е
+$$
+Grammatik: Plural
+
+
+
+	Most masculine nouns, and practically all feminine nouns, form the plural by adding -и. Masculine nouns add this ending directly to the singular form, while feminine nouns _replace_ the singular ending -a by the ending -и.
+ 
+ студент / студент-и  
+ студентка / студентк-и
+$$
+oft	често
+$$
+Tomate	домат
+$$
+Luftzug	течение
+$$
+heute	днес
+$$
+wehen, atmen, blasen
+
+Es weht ein Luftzug.	духам
+
+духа течение.
+$$
+was
+
+Was ist "течение"?	какво
+
+какво е „течение?
+$$
+Can I have/get… / Is it possible to...	Може ли…
+
+Може ли меню, моля?
+Може ли да дойда? (Can I come?)
+$$
+hier <-> dort
+
+hierher	тук <-> там
+
+тука
+$$
+leidtun / to regret / to be sorry	съшалявам
+$$
+wann	кога
+$$
+nicht haben	нямам
+
+нямам вода
+$$
+heute	днес
+$$
+etwas, something	нещо
+$$
+'was Neues	нещо ново
+$$
+nichts, nothing	нищо
+$$
+ankommen	пристигам
+$$
+Stunde(n)
+
+in/after 7 hours	час, часа
+
+след 7 часа
+$$
+auf/bei der Arbeit	на работа
+$$
+aber, allerdings nicht	но
+$$
+kein Problem, "da nich für"	нищо
+$$
+everything/all	всичко
+$$
+jetzt	сега
+$$
+pleasant, nice
+
+angenehme Arbeit	приятен
+
+приятна работа
+$$
+leicht
+
+„leichte Arbeit!“ (kann man jmd wünschen, wenn man geht)	лек
+
+лека работа
+$$
+Good bye	довиждане
+$$
+bis	до
+$$
+sehen	виждам
+$$
+o’clock
+
+at 7 o'clock	часа
+
+в 7 часа
+$$
+warum?
+
+Warum bist du hier?	защо
+
+защо си тук?
+$$
+wieviel? how much? how many?	колко 
+$$
+0,1,2,3,4,5,6,7,8,9,10	нула
+един
+две
+три
+четири
+пет
+шест
+седем
+осем
+девет
+десет
+$$
+11,12,13,14,15,16,17,18,19	единадесет / единайсет
+дванадесет / дванайсет
+тринадесет / …
+четиринадесет
+петнадесет
+шестнадесет
+седемнадесет
+осемнадесет
+деветнадесет
+$$
+20,21,22,...	двадесет
+двадесет и едно / двайсет и едно
+двадесет и две
+...
+$$
+30,40,50,...	тридесет
+читиридесет
+петдесет
+...
+$$
+Kellner	сервитьор
+$$
+kommen, to come
+
+can I come?	идвам
+
+да дойда
+
+може ли да дойда?
+$$
+can I (do + verb)	може ли (да + verb)
+$$
+very fine / that’s alright	много добре
+$$
+Was ist das?	какво е това?
+$$
+Flugzeug	самолет
+$$
+for now / im Moment	засега
+$$
+schöner Tag (einen schönen Tag wünschen) / have a nice day	лек ден
+$$
+Have a good rest	приятна почивка
+$$
+all the best!	вситчко хубаво
+
+вситчко добро
+$$
+Haltestelle	спирка
+$$
+Postamt
+
+"Entschuldigung, wo ist die Post?"	поща
+
+"Моля, къде има поща?"
+$$
+Straße	улица
+$$
+Reservierung	резервация
+$$
+Gepäck	багаж
+$$
+Toilette, WC	тоалетна
+$$
+(An der) Information (Auskunft)	(на) информацията
+$$
+Viel Spaß!	Приятно прекарване!
+$$
+falls, wenn	ако
+$$
+Frage	въпрос
+$$
+Übersetzung/translation
+
+Übersetzungsaufgabe	превод
+
+Упражнение за превод
+
+$$
+bestellen/to order
+
+Ich würde gern bestellen	поръчвам
+
+Бих искал да поръчвам
+$$
+Belegschaft/staff	персонал
+$$
+nur/just,only	само
+$$
+vielleicht/maybe	може би
+$$
+eventuell/maybe	евентуално (adv.)
+$$
+sicher/sure
+
+Ich bin sicher.
+
+Ich bin unsicher.	сигурно (adv.)
+
+Сигурен съм.
+Аз съм сигурен.
+
+Не съм сигурен.
+$$
+klappen (ugs.)	ставам
+$$
+Arzt	лекар
+$$
+ungefähr	около
+$$
+langweilig
+
+Mir ist langweilig.	скучен
+
+Скучно ми е.
+$$
+I like...
+
+I like to travel	обичам да...
+
+обичам да пътувам
+$$
+to love	обичам
+$$
+read (mit Konjugation) -> reading	Чета -> четене
+
+чета, четеш, чете, четем, четете, четат
+$$
+write / writing	Пиша -> писане
+$$
+Exactly!	Точно!
+$$
+exakt	Точен
+$$
+fahren / to drive
+
+Ich fahre (ein) Auto
+Ich fahre (ein) Fahrrad	Карам
+
+Карам кола
+Карам колело
+$$
+Auto	кола
+$$
+Fahrrad	колело
+$$
+Ich liebe dich!	Обичам те!
+$$
+Zug
+
+mit dem Zug	влак
+
+с влак
+$$
+lang	дълъг
+$$
+Zugabteil	купе
+$$
+eng, voll	тесен (adj.)
+тясна
+тясно
+тесни
+$$
+Tür	врата
+$$
+geschlossen	затворен
+$$
+offen, geöffnet	отворен
+$$
+Platz, Sitz	мяасто
+$$
+öffnen	отварям
+$$
+neben, bei, next to/by
+
+Der Platz ist neben der Tür.
+Der Korridor ist beim Abteil.	до
+
+Мястото е до вратата.
+Коридорът е до купето.
+
+$$
+mittig, in der Mitte	среда
+$$
+Hier!	Ето!
+$$
+nett, höflich	любезен
+$$
+Tasche	чанта
+$$
+Koffer	куфар
+$$
+schwer	тежък
+$$
+groß	голям
+голяма
+голямо
+големи
+$$
+hungrig	гладен
+$$
+durstig	жаден
+$$
+Flasche	бутилка
+шише
+$$
+Dorf, countryside	село
+$$
+wunderbar	чудесен
+$$
+Gute Reise!	Приятно пътуване!
+$$
+auf/bei der Arbeit sein
+
+Ich bin bei der Arbeit	на работа
+
+На работа съм.
+$$
+Das ist für dich.	Това е за теб.
+$$
+Es gibt etwas Neues.
+
+Es gibt nichts Neues.	Има нещо ново.
+
+Няма нищо ново.
+$$
+Entschuldigung!	Извинете!
+$$
+Hoppla! Oops!
+
+Hoppla, Entschuldigung!	Опа!
+
+Опа, извинете!
+$$
+Willkommen!	Добре дошли!
+$$
+stark, kräftig
+stark im Geschmack	силен
+$$
+klein	малък, малка, малко
+$$
+Freund	приятел
+$$
+weiß	бял
+бяла
+бяло
+бели
+$$
+Bleistift	молив
+$$
+Urlaub
+
+im Urlaub	отпуск
+
+в отпуска
+$$
+in (in einem abgeschlossenen Bereich), oder auch mal: hinein	в
+$$
+von (oder Genitiv)
+
+Die Tür des Abteils ist geschlossen.
+Ich bin ein Freund von John.
+Das Buch ist von Nadka. / Das ist Nadkas Buch.	на
+
+Вратата на купето е затворена.
+Прияател съм на Джон.
+Книгата е на Надка.
+$$
+auf, in
+
+Du bist (sitzt) auf (Platz) 2.	на
+
+Ти си на номер две.
+$$
+mit, mittels
+
+Sie reisen mit dem Zug.	с
+
+Те пътуват с влак.
+$$
+heimisch, domestic, von zuhause, vom Haus	домашен
+$$
+Haus	къща
+$$
+Schalter"beamte", clerk/counter assistant	служителка
+$$
+nah	близо (adv.)
+
+близък (adj.)
+$$
+Ladengeschäft	магазин
+$$
+noch, mehr
+
+another, one more	още
+
+още един
+$$
+Ich höre! Bitte, sprechen Sie!		кажете!
+$$
+Shopping center	търгровски център
+$$
+That's all.	Това е всичко.
+$$
+So, achso/klar; auf diese Art (und Weise)
+
+Klar, aus England.	така
+
+Така, от англия.
+$$
+bedeuten
+
+Das bedeutet, Sie sind Engländerin.	знача
+
+Значи сте англичанка.
+
+$$
+Beruf, profession	професията
+$$
+Übersetzer(in)	преводач
+преводачка
+$$
+verheiratet sein	женен (m), омъжена (w)
+
+Омъжена ли сте?
+$$
+Kind
+Kinder
+
+Ich habe ein Kind.	дете
+деца
+
+Имам едно дете.
+$$
+Sohn	син
+$$
+Lehrer	учител
+$$
+Mal
+
+Sind Sie das erste Mal in Bulgarien?	път
+
+За първи път ли сте в България?
+$$
+kennen
+
+Ich kenne ihr Land gut.	познавам
+
+Познавам страната ви добре.
+$$
+Land	страната
+$$
+interessant
+
+Dies ist sehr interessant.	интересен
+
+Това е много интересно.
+$$
+Was ist er (von Beruf)?	Какъв е той? (ugs.) / Каква е тя?
+
+Каква професия имате?
+$$
+Bedeutung	значение
+$$
+geschieden	разведен
+разведена
+$$
+Großmutter	баба
+$$
+Vater	баща
+$$
+Bruder	брат
+$$
+Schwester	сестра
+$$
+Mutter	майка
+$$
+Großvater	дядо
+$$
+Tochter	дъщеря
+$$
+Cousin
+Cousine	братовчед
+братовчедка
+$$
+Glas (Material)	стъкло
+$$
+gläsern, Glas-	стъклен
+$$
+Wand	стена
+$$
+(Sicht)Schutz, Trennwand	параван
+$$
+mehrteilig, partitioned of
+
+gläserne mehrteilige Trennwand	преграден
+
+стъклен преграден параван
+$$
+hoch, groß, tall	висок
+$$
+neu
+
+brandneu	нов
+
+чисто нов (ugs.)
+$$
+mein,dein,  sein,ihr,  unser,euer,  ihr
+
+mein Zimmer	(Nomen mit best. Artikel) + ми,ти,  му,и,  ни,ви,  им
+
+стаята ми
+$$
