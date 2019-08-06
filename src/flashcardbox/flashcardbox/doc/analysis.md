@@ -65,6 +65,19 @@ sitting in bin 1.
 
 Example bin capacities and due thresholds: 0(x,x), 1(30,3), 2(60,30), 3(150,120), 4(240,210), 5(420,390), 6(x,x).
 
+Bins 0 and n-1 can be made "ordinary" bins like 1..n-2 by assigning them
+special values for capacity and due threshold:
+
+* Bin 0: capacity 0, due threshold ∞. Since the capacity is exceeded even with
+just one card in it, the bin get selected if no other bin was fou‚nd due.
+Likewise the bin never stays selected, because its due threshold is so high.
+* Bin n-1: capacity ∞. due threshold ∞. Since the capacity is never reached it will
+never be selected as due. Only during random selection could bin n-1 become due.
+But that's not so bad. Firstly the probability is low, secondly it's ok to very rarely
+present cards again which were deemed solidly memorized. Just to check ;-) Thirdly
+random selection should be extreme rare during an ongoing learning process where there
+are always new cards to memorize in bin 0.
+
 ## Scenarios
 Notation:
 
@@ -87,3 +100,15 @@ Notation:
 * 0(x,x,8), 1(5,2,1), !2(10,8,7), 3(20,17,22), 4(x,x,27) : bin 3 is chosen
 
 ## Functions
+```
+class Teacher {
+    public int Select_due_bin(BinInfo[] bins) {...}
+}
+
+class BinInfo {
+    public bool IsDue {get;}
+    public int Capacity {get;}
+    public int DueThreshold {get;}
+    public int Count {get;}
+}
+```
