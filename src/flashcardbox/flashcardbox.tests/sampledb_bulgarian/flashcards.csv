@@ -1,0 +1,545 @@
+﻿Question;Answer;Tags;BinIndex;Id
+Pronomen + _sein_;"Аз съм
+ Ти си
+ Той е, Тя е, То е
+ Ние сме
+ Вие сте
+ Те са";grammatik;0;1
+Guten Tag!;Добър ден!;;0;2
+Hallo!;"Здравейте! (förmlich)
+ Здравей!";;0;3
+"Gibt es…?
+
+Gibt es ein freies Zimmer?
+Ja, gibt es.";"Има ли…
+ 
+ Има ли свободна стая?
+ 
+ Да, има.";;0;4
+Gibt es nicht / There aren't;"няма
+ 
+ Не, няма!";;0;5
+freies Apartment;свободен апартамент;;0;6
+Sind Sie ein Tourist? Nein, ich bin kein Tourist. Ich bin Geschäftsmann.;"Турист ли сте?
+ Не, не съм турист.
+ Бизнесмен съм.";;0;7
+Name;име;;0;8
+You are welcome;Моля;;0;9
+Bitte! | Wie bitte? | Pardon?;"Моля!
+ Моля?";;0;10
+Here you are / There you go;"заповядайте (formell)
+ заповядай";;0;11
+Wie heißen Sie? Ich heiße...;"Как се казвате? (formell) / Как се казваш?
+ Казвам се…
+ 
+ Казвам се Ралф Вестфал.";;0;12
+Are you English? Yes, I’m English.;"Англичанин ли сте?
+ Да, англичанин (англичанка) съм.";;0;13
+Amerikaner(in);"американец
+ американка";;0;14
+Kanadier(in);"канадец
+ канадка";;0;15
+Deutscher;"немец
+ германец";;0;16
+Deutschland | aus Deutschland;"германия
+ 
+ от германия";;0;17
+Pass;паспорта;;0;18
+Danke;"благодария
+ мерси";;0;19
+Woher (kommen Sie?);"Откъде (сте?)
+ 
+ Откъде си? (informell)";;0;20
+Wo;къде;;0;21
+Wie / Wie geht es Ihnen?;"Как
+ 
+ Как сте?
+ Как си?";;0;22
+Mir geht es gut;"Добре съм
+ 
+ Аз съм добре";;0;23
+Und Ihnen? (als Antwort auf: Wie geht es Ihnen?);"А Вие?
+ 
+ А ти? (informell)";;0;24
+Guten Morgen / Guten Abend;"добро утро
+ Добър бечер";;0;25
+Mann / Frau;"мъж (m)
+ жена (f)";;0;26
+Bulgare/in;"българин (m)
+ българка (f)";;0;27
+Museum;музей (m);;0;28
+Kaffee, Café;кафе (n);;0;29
+Menü, Speisekarte;меню (n);;0;30
+Brief;писмо (n);;0;31
+Meer;море (n);;0;32
+Taxi;такси (n);;0;33
+Platz;място (n);;0;34
+Ich bin frei (m/f);"Свободен съм (m)
+ Свободна съм (f)
+ 
+ Da Adjektiv richtet sich nach dem Geschlecht des Sprechenden.";grammatik;0;35
+Gut aussehend;"хубав
+ хубава
+ хубаво";;0;36
+Fluss;"река (f)
+ 
+ Има ли река в лондон?";;0;37
+Adresse;адрес (m);;0;38
+Bank;банка;;0;39
+Bier;бира;;0;40
+Computer;компютър;;0;41
+Show;шоу;;0;42
+Musik;музика;;0;43
+Kalender;календар;;0;44
+Problem;проблем;;0;45
+Sport;спорт;;0;46
+Firma;фирма;;0;47
+Fußball;футбол;;0;48
+Chauffeur;шофьор;;0;49
+Drucker;принтер;;0;50
+Büro;офис;;0;51
+Video;видео;;0;52
+Wörterbuch;речник;;0;53
+Wochenende;уикенд;;0;54
+angenehm, pleasant, nice;приятен;;0;55
+beautiful, lovely, pretty, nice;"хубав
+ 
+ хубав хотел
+ 
+ хубаво море";;0;56
+Aufgabe, Übung;упражнение;;0;57
+Dies;"това (n)
+този (m)
+тази (f)
+
+това кафе
+този ресторант
+тази жена";;0;58
+Bitte, gern geschehen.;Моля, няма защо.;;0;59
+Ich hätte gern...;Бих искал...;;0;60
+to want / wollen;"искам
+ 
+ искаш
+ иска
+ искаме
+ искате
+ искат";;0;61
+Mineralwasser;минерална вода;;0;62
+Limonade;лимонада;;0;63
+Tee;чай;;0;64
+oder;или;;0;65
+reisen;пътувам;;0;66
+verlassen, abreisen;тръгвам;;0;67
+später;после;;0;68
+(superlativ bilden);"най-…
+ 
+ най-после";;0;69
+endlich;най-после;;0;70
+"ich auch / me too
+
+Ich mag auch reisen.";"и аз (am Satzanfang)
+
+И аз обичам да пътувам.";;0;71
+Herr / Frau /Fräulein;"господин
+ госпожа
+ госпожица";;0;72
+"auch
+
+Sie sind auch hier.";"също
+
+Те също са тук.";;0;73
+viel, sehr;много;;0;74
+werden;ставам;;0;75
+Student(in);"студент
+ студентка";;0;76
+...ам Konjugation (reisen);"ам, аш, а, аме, ате, ат
+ 
+Пътувам Пътуваш Пътува Пътуваме Пътувате Пътуват";grammatik;0;77
+haben;"имам
+ 
+ имаш ли ябълки?";;0;78
+wollen;"искам
+ 
+ Ще искам 1 килограм ябълки
+ Ще искам …, моля.";;0;79
+Futur-partikel;"ще 
+ ще пътувам за Софиа";;0;80
+Ich würde gern… (formal);"Бих искал…
+ 
+ Бих искал една пържола, моля.";;0;81
+Steak / Schnitzel;пържола;;0;82
+Grammatik: Vokativ;"When a person or object is being addressed, a special form, called the  vocative, is used. The endings are -e for masculine nouns and -o (or -e) for feminine nouns. Here are examples of the most frequently used vocative forms, those for the  nouns meaning Mr., Mrs. and Miss. Note that the accent changes place in the
+vocative of госпожа (госпожо!).
+ 
+ господин / господин-е
+ госпожа / госпож-о
+ госпожица / госпожиц-е";grammatik;0;83
+Grammatik: Plural;"Most masculine nouns, and practically all feminine nouns, form the plural by adding -и. Masculine nouns add this ending directly to the singular form, while feminine nouns _replace_ the singular ending -a by the ending -и.
+ 
+ студент / студент-и  
+ студентка / студентк-и";grammatik;0;84
+oft;често;;0;85
+Tomate;домат;;0;86
+Luftzug;течение;;0;87
+heute;днес;;0;88
+"wehen, atmen, blasen
+
+Es weht ein Luftzug.";"духам
+
+духа течение.";;0;89
+"was
+
+Was ist течение""?""";"какво
+
+какво е „течение?";;0;90
+Can I have/get… / Is it possible to...;"Може ли…
+
+Може ли меню, моля?
+Може ли да дойда? (Can I come?)";;0;91
+"hier <-> dort
+
+hierher";"тук <-> там
+
+тука";;0;92
+leidtun / to regret / to be sorry;съшалявам;;0;93
+wann;кога;;0;94
+nicht haben;"нямам
+
+нямам вода";;0;95
+heute;днес;;0;96
+etwas, something;нещо;;0;97
+'was Neues;нещо ново;;0;98
+nichts, nothing;нищо;;0;99
+ankommen;пристигам;;0;100
+"Stunde(n)
+
+in/after 7 hours";"час, часа
+
+след 7 часа";;0;101
+auf/bei der Arbeit;на работа;;0;102
+aber, allerdings nicht;но;;0;103
+"kein Problem, da nich für""""";нищо;;0;104
+everything/all;всичко;;0;105
+jetzt;сега;;0;106
+"pleasant, nice
+
+angenehme Arbeit";"приятен
+
+приятна работа";;0;107
+"leicht
+
+„leichte Arbeit!“ (kann man jmd wünschen, wenn man geht)";"лек
+
+лека работа";;0;108
+Good bye;довиждане;;0;109
+bis;до;;0;110
+sehen;виждам;;0;111
+"o’clock
+
+at 7 o'clock";"часа
+
+в 7 часа";;0;112
+"warum?
+
+Warum bist du hier?";"защо
+
+защо си тук?";;0;113
+wieviel? how much? how many?;колко;;0;114
+0,1,2,3,4,5,6,7,8,9,10;"нула
+един
+две
+три
+четири
+пет
+шест
+седем
+осем
+девет
+десет";;0;115
+11,12,13,14,15,16,17,18,19;"единадесет / единайсет
+дванадесет / дванайсет
+тринадесет / …
+четиринадесет
+петнадесет
+шестнадесет
+седемнадесет
+осемнадесет
+деветнадесет";;0;116
+20,21,22,...;"двадесет
+двадесет и едно / двайсет и едно
+двадесет и две
+...";;0;117
+30,40,50,...;"тридесет
+читиридесет
+петдесет
+...";;0;118
+Kellner;сервитьор;;0;119
+"kommen, to come
+
+can I come?";"идвам
+
+да дойда
+
+може ли да дойда?";;0;120
+can I (do + verb);може ли (да + verb);;0;121
+very fine / that’s alright;много добре;;0;122
+Was ist das?;какво е това?;;0;123
+Flugzeug;самолет;;0;124
+for now / im Moment;засега;;0;125
+schöner Tag (einen schönen Tag wünschen) / have a nice day;лек ден;;0;126
+Have a good rest;приятна почивка;;0;127
+all the best!;"вситчко хубаво
+
+вситчко добро";;0;128
+Haltestelle;спирка;;0;129
+"Postamt
+
+Entschuldigung, wo ist die Post?""""";"поща
+
+Моля, къде има поща?""""";;0;130
+Straße;улица;;0;131
+Reservierung;резервация;;0;132
+Gepäck;багаж;;0;133
+Toilette, WC;тоалетна;;0;134
+(An der) Information (Auskunft);(на) информацията;;0;135
+Viel Spaß!;Приятно прекарване!;;0;136
+falls, wenn;ако;;0;137
+Frage;въпрос;;0;138
+"Übersetzung/translation
+
+Übersetzungsaufgabe";"превод
+
+Упражнение за превод";;0;139
+"bestellen/to order
+
+Ich würde gern bestellen";"поръчвам
+
+Бих искал да поръчвам";;0;140
+Belegschaft/staff;персонал;;0;141
+nur/just,only;само;;0;142
+vielleicht/maybe;може би;;0;143
+eventuell/maybe;евентуално (adv.);;0;144
+"sicher/sure
+
+Ich bin sicher.
+
+Ich bin unsicher.";"сигурно (adv.)
+
+Сигурен съм.
+Аз съм сигурен.
+
+Не съм сигурен.";;0;145
+klappen (ugs.);ставам;;0;146
+Arzt;лекар;;0;147
+ungefähr;около;;0;148
+"langweilig
+
+Mir ist langweilig.";"скучен
+
+Скучно ми е.";;0;149
+"I like...
+
+I like to travel";"обичам да...
+
+обичам да пътувам";;0;150
+to love;обичам;;0;151
+read (mit Konjugation) -> reading;"Чета -> четене
+
+чета, четеш, чете, четем, четете, четат";;0;152
+write / writing;Пиша -> писане;;0;153
+Exactly!;Точно!;;0;154
+exakt;Точен;;0;155
+"fahren / to drive
+
+Ich fahre (ein) Auto
+Ich fahre (ein) Fahrrad";"Карам
+
+Карам кола
+Карам колело";;0;156
+Auto;кола;;0;157
+Fahrrad;колело;;0;158
+Ich liebe dich!;Обичам те!;;0;159
+"Zug
+
+mit dem Zug";"влак
+
+с влак";;0;160
+lang;дълъг;;0;161
+Zugabteil;купе;;0;162
+eng, voll;"тесен (adj.)
+тясна
+тясно
+тесни";;0;163
+Tür;врата;;0;164
+geschlossen;затворен;;0;165
+offen, geöffnet;отворен;;0;166
+Platz, Sitz;мяасто;;0;167
+öffnen;отварям;;0;168
+"neben, bei, next to/by
+
+Der Platz ist neben der Tür.
+Der Korridor ist beim Abteil.";"до
+
+Мястото е до вратата.
+Коридорът е до купето.";;0;169
+mittig, in der Mitte;среда;;0;170
+Hier!;Ето!;;0;171
+nett, höflich;любезен;;0;172
+Tasche;чанта;;0;173
+Koffer;куфар;;0;174
+schwer;тежък;;0;175
+groß;"голям
+голяма
+голямо
+големи";;0;176
+hungrig;гладен;;0;177
+durstig;жаден;;0;178
+Flasche;"бутилка
+шише";;0;179
+Dorf, countryside;село;;0;180
+wunderbar;чудесен;;0;181
+Gute Reise!;Приятно пътуване!;;0;182
+"auf/bei der Arbeit sein
+
+Ich bin bei der Arbeit";"на работа
+
+На работа съм.";;0;183
+Das ist für dich.;Това е за теб.;;0;184
+"Es gibt etwas Neues.
+
+Es gibt nichts Neues.";"Има нещо ново.
+
+Няма нищо ново.";;0;185
+Entschuldigung!;Извинете!;;0;186
+"Hoppla! Oops!
+
+Hoppla, Entschuldigung!";"Опа!
+
+Опа, извинете!";;0;187
+Willkommen!;Добре дошли!;;0;188
+"stark, kräftig
+stark im Geschmack";силен;;0;189
+klein;малък, малка, малко;;0;190
+Freund;приятел;;0;191
+weiß;"бял
+бяла
+бяло
+бели";;0;192
+Bleistift;молив;;0;193
+"Urlaub
+
+im Urlaub";"отпуск
+
+в отпуска";;0;194
+in (in einem abgeschlossenen Bereich), oder auch mal: hinein;в;;0;195
+"von (oder Genitiv)
+
+Die Tür des Abteils ist geschlossen.
+Ich bin ein Freund von John.
+Das Buch ist von Nadka. / Das ist Nadkas Buch.";"на
+
+Вратата на купето е затворена.
+Прияател съм на Джон.
+Книгата е на Надка.";;0;196
+"auf, in
+
+Du bist (sitzt) auf (Platz) 2.";"на
+
+Ти си на номер две.";;0;197
+"mit, mittels
+
+Sie reisen mit dem Zug.";"с
+
+Те пътуват с влак.";;0;198
+heimisch, domestic, von zuhause, vom Haus;домашен;;0;199
+Haus;къща;;0;200
+"Schalterbeamte"", clerk/counter assistant""";служителка;;0;201
+nah;"близо (adv.)
+
+близък (adj.)";;0;202
+Ladengeschäft;магазин;;0;203
+"noch, mehr
+
+another, one more";"още
+
+още един";;0;204
+Ich höre! Bitte, sprechen Sie!;кажете!;;0;205
+Shopping center;търгровски център;;0;206
+That's all.;Това е всичко.;;0;207
+"So, achso/klar; auf diese Art (und Weise)
+
+Klar, aus England.";"така
+
+Така, от англия.";;0;208
+"bedeuten
+
+Das bedeutet, Sie sind Engländerin.";"знача
+
+Значи сте англичанка.";;0;209
+Beruf, profession;професията;;0;210
+Übersetzer(in);"преводач
+преводачка";;0;211
+verheiratet sein;"женен (m), омъжена (w)
+
+Омъжена ли сте?";;0;212
+"Kind
+Kinder
+
+Ich habe ein Kind.";"дете
+деца
+
+Имам едно дете.";;0;213
+Sohn;син;;0;214
+Lehrer;учител;;0;215
+"Mal
+
+Sind Sie das erste Mal in Bulgarien?";"път
+
+За първи път ли сте в България?";;0;216
+"kennen
+
+Ich kenne ihr Land gut.";"познавам
+
+Познавам страната ви добре.";;0;217
+Land;страната;;0;218
+"interessant
+
+Dies ist sehr interessant.";"интересен
+
+Това е много интересно.";;0;219
+Was ist er (von Beruf)?;"Какъв е той? (ugs.) / Каква е тя?
+
+Каква професия имате?";;0;220
+Bedeutung;значение;;0;221
+geschieden;"разведен
+разведена";;0;222
+Großmutter;баба;;0;223
+Vater;баща;;0;224
+Bruder;брат;;0;225
+Schwester;сестра;;0;226
+Mutter;майка;;0;227
+Großvater;дядо;;0;228
+Tochter;дъщеря;;0;229
+"Cousin
+Cousine";"братовчед
+братовчедка";;0;230
+Glas (Material);стъкло;;0;231
+gläsern, Glas-;стъклен;;0;232
+Wand;стена;;0;233
+(Sicht)Schutz, Trennwand;параван;;0;234
+"mehrteilig, partitioned of
+
+gläserne mehrteilige Trennwand";"преграден
+
+стъклен преграден параван";;0;235
+hoch, groß, tall;висок;;0;236
+"neu
+
+brandneu";"нов
+
+чисто нов (ugs.)";;0;237
+"mein,dein,  sein,ihr,  unser,euer,  ihr
+
+mein Zimmer";"(Nomen mit best. Artikel) + ми,ти,  му,и,  ни,ви,  им
+
+стаята ми";;1;238
