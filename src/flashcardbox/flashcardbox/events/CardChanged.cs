@@ -8,6 +8,5 @@ namespace flashcardbox.events
         public string Question;
         public string Answer;
         public string Tags;
-        public string Hash;
     }
 }
