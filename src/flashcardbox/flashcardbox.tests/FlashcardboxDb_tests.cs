@@ -31,12 +31,12 @@ namespace flashcardbox.tests
             Assert.Equal("1", result[0].Id);
             Assert.Equal("q1", result[0].Question);
             Assert.Equal("a1", result[0].Answer);
-            Assert.Equal(0, result[0].BinIndex); // bin has been assigned
+            Assert.Equal("", result[0].BinIndex);
             Assert.Equal("2", result[1].Id);
             Assert.Equal("t1", result[1].Tags);
-            Assert.Equal(1, result[1].BinIndex);
-            Assert.True(result[2].Id.IndexOf("-") > 0); // id has been assigned
-            Assert.Equal(2, result[2].BinIndex);
+            Assert.Equal("1", result[1].BinIndex);
+            Assert.Equal("", result[2].Id);
+            Assert.Equal("2", result[2].BinIndex);
         }
     }
 }

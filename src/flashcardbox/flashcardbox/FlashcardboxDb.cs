@@ -35,15 +35,11 @@ namespace flashcardbox
 
                 while (csv.Read()) {
                     yield return new FlashcardRecord {
-                        Id = string.IsNullOrWhiteSpace(csv.GetField("Id"))
-                            ? Guid.NewGuid().ToString() // records w/o id get assigned a Guid as id
-                            : csv.GetField("Id"),
+                        Id = csv.GetField("Id"),
                         Question = csv.GetField("Question"),
                         Answer = csv.GetField("Answer"),
                         Tags = csv.GetField("Tags"),
-                        BinIndex = string.IsNullOrWhiteSpace(csv.GetField("BinIndex"))
-                            ? 0 // records w/o a bin index are placed in bin 0
-                            : int.Parse(csv.GetField("BinIndex"))
+                        BinIndex = csv.GetField("BinIndex")
                     };
                 }
             }
@@ -74,6 +70,6 @@ namespace flashcardbox
         public string Question { get; set; }
         public string Answer { get; set; }
         public string Tags { get; set; }
-        public int BinIndex { get; set; }
+        public string BinIndex { get; set; }
     }
 }
