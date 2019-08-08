@@ -60,5 +60,29 @@ namespace flashcardbox.tests
             var result = sut.LoadFlashcards();
             result.Should().BeEquivalentTo(flashcards);
         }
+        
+        
+        [Fact]
+        public void LoadConfig()
+        {
+            var sut = new FlashcardboxDb("../../../sampledb_load");
+            var result = sut.LoadConfig();
+
+            result.Should().BeEquivalentTo(new FlashcardboxConfig {
+                Bins = new[]
+                {
+                    new FlashcardboxConfig.Bin
+                    {
+                        UpperDueThreshold = 20,
+                        LowerDueThreshold = 10
+                    },
+                    new FlashcardboxConfig.Bin
+                    {
+                        UpperDueThreshold = 50,
+                        LowerDueThreshold = 30
+                    }
+                }
+            });
+        }
     }
 }

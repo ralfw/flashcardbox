@@ -55,9 +55,10 @@ namespace flashcardbox
         }
         
 
-        public FlashcardboxConfig LoadConfig()
-        {
-            throw new NotImplementedException();
+        public FlashcardboxConfig LoadConfig() {
+            var filepath = Path.Combine(_path, FLASHCARDBOX_CONFIG_FILENAME);
+            var configJson = File.ReadAllText(filepath);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<FlashcardboxConfig>(configJson);
         }
     }
 
