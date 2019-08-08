@@ -22,8 +22,7 @@ namespace flashcardbox
         {
             var filepath = Path.Combine(_path, FLASHCARDS_FILENAME);
             using (var reader = new StreamReader(filepath))
-            using (var csv = new CsvReader(reader))
-            {
+            using (var csv = new CsvReader(reader)) {
                 // csv.GetRecords<FlashcardReocord>() somehow does not work :-(
                 // Need to do reading and mapping manually. But that's still easier with the
                 // lib, because it parses multi-line values.
@@ -33,7 +32,7 @@ namespace flashcardbox
                 csv.Read(); // header
                 csv.ReadHeader(); // parse (badly named method!)
 
-                while (csv.Read()) {
+                while (csv.Read())
                     yield return new FlashcardRecord {
                         Id = csv.GetField("Id"),
                         Question = csv.GetField("Question"),
@@ -41,13 +40,20 @@ namespace flashcardbox
                         Tags = csv.GetField("Tags"),
                         BinIndex = csv.GetField("BinIndex")
                     };
-                }
             }
         }
 
+        
         public void StoreFlashcards(IEnumerable<FlashcardRecord> records)
         {
+            var filepath = Path.Combine(_path, FLASHCARDS_FILENAME);
+            using (var writer = new StreamWriter(filepath)) {
+                writer.WriteLine($"Question;Answer;Tags;BinIndex;Id");
+                foreach (var r in records)
+                    writer.WriteLine($"\"{r.Question}\";\"{r.Answer}\";{r.Tags};{r.BinIndex};{r.Id}");
+            }
         }
+        
 
         public FlashcardboxConfig LoadConfig()
         {
@@ -55,6 +61,7 @@ namespace flashcardbox
         }
     }
 
+    
     public class FlashcardboxConfig
     {
         public class Bin {
@@ -65,6 +72,7 @@ namespace flashcardbox
         public Bin[] Bins;
     }
 
+    
     public class FlashcardRecord {
         public string Id { get; set; }
         public string Question { get; set; }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -37,6 +38,27 @@ namespace flashcardbox.tests
             Assert.Equal("1", result[1].BinIndex);
             Assert.Equal("", result[2].Id);
             Assert.Equal("2", result[2].BinIndex);
+        }
+        
+        
+        [Fact]
+        public void Store()
+        {
+            const string DB_TEST_PATH = "sampledb_store";
+            if (Directory.Exists(DB_TEST_PATH)) Directory.Delete(DB_TEST_PATH, true);
+            Directory.CreateDirectory(DB_TEST_PATH);
+            
+            var sut = new FlashcardboxDb(DB_TEST_PATH);
+            var flashcards = new[] {
+                new FlashcardRecord{Question = "q1", Answer = "a1", Tags = "t1", BinIndex = "1", Id = "1"},
+                new FlashcardRecord{Question = "q2.1\nq2.2", Answer = "a2.1\na2.2", Tags = "t2,t3", BinIndex = "", Id = ""}
+            };
+            
+            
+            sut.StoreFlashcards(flashcards);
+
+            var result = sut.LoadFlashcards();
+            result.Should().BeEquivalentTo(flashcards);
         }
     }
 }
