@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using flashcardbox.events;
 using nsimpleeventstore;
@@ -31,37 +32,37 @@ namespace flashcardbox.messages.commands
         
         public (CommandStatus, Event[], string, Notification[]) Process(IMessage msg, IMessageContextModel ctx, string version) {
             var model = ctx as SyncCommandMessageContextModel;
-            var events = new List<Event>();
 
-            Sync_flashcards(model, events);
-            Sync_config(model, events);
+            var events0 = Sync_flashcards(model);
+            var events1 = Sync_config(model);
 
-            return (new Success(), events.ToArray(), "", new Notification[0]);
+            return (new Success(), events0.Concat(events1).ToArray(), "", new Notification[0]);
         }
 
         
-        void Sync_flashcards(SyncCommandMessageContextModel model, List<Event> events) {
+        IEnumerable<Event> Sync_flashcards(SyncCommandMessageContextModel model) {
             var flashcards = _db.LoadFlashcards().ToArray();
-                
-            Sync_new_and_changed_flashcards(model, flashcards, events);
-            Sync_deleted_flashcards(model, flashcards, events);
+
+            var events0 = Sync_new_and_changed_flashcards(model, flashcards);
+            var events1 = Sync_deleted_flashcards(model, flashcards);
                 
             _db.StoreFlashcards(flashcards);
+
+            return events0.Concat(events1);
         }
         
         
-        private void Sync_new_and_changed_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards, List<Event> events)
+        private Event[] Sync_new_and_changed_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
         {
-            foreach (var fc in flashcards)
-                Sync_flashcard(fc);
-           
+            return flashcards.SelectMany(Sync_flashcard).ToArray();        
 
-            void Sync_flashcard(FlashcardRecord fc) {
+            IEnumerable<Event> Sync_flashcard(FlashcardRecord fc) {
                 if (string.IsNullOrWhiteSpace(fc.Id)) {
                     // new card found
                     var eImported = new CardImported {Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
                     var eMoved = new CardMovedTo {CardId = eImported.Id};
-                    events.AddRange(new Event[]{eImported,eMoved});
+                    yield return eImported;
+                    yield return eMoved;
                     
                     fc.Id = eImported.Id;
                     fc.BinIndex = eMoved.BinIndex.ToString();
@@ -70,7 +71,7 @@ namespace flashcardbox.messages.commands
                     // changed card found
                     var fcHash = FlashcardHash.Calculate(fc.Question, fc.Answer, fc.Tags);
                     if (model.Flashcards[fc.Id].hash != fcHash)
-                        events.Add(new CardChanged{CardId = fc.Id, Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags});
+                        yield return new CardChanged{CardId = fc.Id, Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
                 }
 
                 // always update the binIndex
@@ -80,18 +81,18 @@ namespace flashcardbox.messages.commands
         }
 
 
-        private void Sync_deleted_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards, List<Event> events) {
-            foreach(var id in model.Flashcards.Keys)
-                if (flashcards.Any(fc => fc.Id == id) is false)
-                    events.Add(new CardDeleted{CardId = id});
-        }
+        private CardDeleted[] Sync_deleted_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
+            => (from id in model.Flashcards.Keys
+                        where flashcards.Any(fc => fc.Id == id) is false
+                        select new CardDeleted {CardId = id}
+               ).ToArray();
 
 
-        private void Sync_config(SyncCommandMessageContextModel model, List<Event> events) {
+        private IEnumerable<Event> Sync_config(SyncCommandMessageContextModel model) {
             var config = _db.LoadConfig();
             if (config.Bins.Length > 0)
                 if (Config_changed())
-                    Record_config();
+                    yield return Record_config();
 
             
             bool Config_changed() {
@@ -106,11 +107,10 @@ namespace flashcardbox.messages.commands
                 return true;
             }
 
-            void Record_config() {
-                events.Add(new BoxConfigured {
+            BoxConfigured Record_config()
+                => new BoxConfigured {
                     Bins = config.Bins.Select(Map).ToArray()
-                });
-            }
+                };
             
             BoxConfigured.Bin Map(FlashcardboxConfig.Bin b)
                 => new BoxConfigured.Bin {
