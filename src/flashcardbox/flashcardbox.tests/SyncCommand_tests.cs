@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using flashcardbox.events;
 using flashcardbox.messages.commands;
+using flashcardbox.messages.commands.sync;
 using FluentAssertions;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;

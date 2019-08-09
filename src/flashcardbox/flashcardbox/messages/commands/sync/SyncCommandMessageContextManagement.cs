@@ -5,7 +5,7 @@ using nsimpleeventstore;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;
 
-namespace flashcardbox.messages.commands
+namespace flashcardbox.messages.commands.sync
 {
     /*
      * context model for flashcard import:

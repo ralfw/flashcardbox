@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace flashcardbox.messages.commands
+namespace flashcardbox.messages.commands.sync
 {
     internal static class FlashcardHash
     {

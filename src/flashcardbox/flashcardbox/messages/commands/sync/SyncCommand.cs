@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using nsimplemessagepump.contract;
 
-namespace flashcardbox.messages.commands
+namespace flashcardbox.messages.commands.sync
 {
     public class SyncCommand : Command {}
 }

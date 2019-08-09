@@ -1,4 +1,5 @@
 using flashcardbox.messages.commands;
+using flashcardbox.messages.commands.sync;
 using Xunit;
 using Xunit.Abstractions;
 

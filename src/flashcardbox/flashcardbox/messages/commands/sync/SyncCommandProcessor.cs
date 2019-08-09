@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using flashcardbox.events;
 using nsimpleeventstore;
@@ -8,7 +6,7 @@ using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;
 using nsimplemessagepump.contract.messageprocessing;
 
-namespace flashcardbox.messages.commands
+namespace flashcardbox.messages.commands.sync
 {
     /*
      * flashcards.csv is loaded and compared against the already imported cards:
