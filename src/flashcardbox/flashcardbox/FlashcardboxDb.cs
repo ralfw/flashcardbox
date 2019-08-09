@@ -70,7 +70,7 @@ namespace flashcardbox
             public int LowerDueThreshold;
         }
         
-        public Bin[] Bins;
+        public Bin[] Bins = new Bin[0];
     }
 
     
