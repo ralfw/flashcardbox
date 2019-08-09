@@ -1,0 +1,4 @@
+﻿Question;Answer;Tags;BinIndex;Id
+new q1;a1;t1;;
+unchanged q2;a2;t2;2;2
+changed q3v2;a3;;1;3

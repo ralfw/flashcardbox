@@ -1,15 +1,60 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using flashcardbox.events;
 using flashcardbox.messages.commands;
 using FluentAssertions;
 using nsimpleeventstore;
+using nsimplemessagepump.contract;
 using Xunit;
 
 namespace flashcardbox.tests
 {
     public class SyncCommand_tests
     {
+        [Fact]
+        public void Process_without_previous_config()
+        {
+            const string BOX_PATH = "sampledb_sync_processing";
+            
+            var ctx = new SyncCommandMessageContextModel {
+                Flashcards = new Dictionary<string, (string binIndex, string hash)> {
+                    {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
+                    {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
+                    {"99", ("3", "xyz")} // to be deleted
+                },
+                Config = new FlashcardboxConfig()
+            };
+            var db = new FlashcardboxDb(BOX_PATH);
+
+            var sut = new SyncCommandProcessor(db);
+            
+            File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
+                      Path.Combine(BOX_PATH, "flashcards.csv"), true);
+
+            
+            var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
+
+            
+            Assert.IsType<Success>(status);
+            events.Should().BeEquivalentTo(new Event[]{
+                new CardImported{Question = "new q1", Answer = "a1", Tags = "t1", Id = events[0].Id}, 
+                new CardMovedTo{CardId = events[0].Id, Id = events[1].Id}, 
+                new CardChanged{CardId = "3", Question = "changed q3v2", Answer = "a3", Tags = "", Id = events[2].Id}, 
+                new CardDeleted(){CardId = "99", Id = events[3].Id},
+                new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[4].Id} 
+            });
+
+            var flashcards = db.LoadFlashcards();
+            flashcards.Should().BeEquivalentTo(new[]
+            {
+                new FlashcardRecord{Question = "new q1", Answer = "a1", Tags = "t1", BinIndex = "0", Id = events[0].Id},
+                new FlashcardRecord{Question = "unchanged q2", Answer = "a2", Tags = "t2", BinIndex = "2", Id = "2"},
+                new FlashcardRecord{Question = "changed q3v2", Answer = "a3", Tags = "", BinIndex = "4", Id = "3"}
+            });
+        }
+        
+        
         [Fact]
         public void Load_message_context()
         {
@@ -31,8 +76,10 @@ namespace flashcardbox.tests
             });
             var sut = new SyncCommandMessageContextManagement(es);
             
-            var result = sut.Load(new SyncCommand{FlashcardboxPath = ""});
+            
+            var result = sut.Load(new SyncCommand());
 
+            
             var ctxModel = result.Ctx as SyncCommandMessageContextModel;
             
             ctxModel.Config.Should().BeEquivalentTo(new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin {

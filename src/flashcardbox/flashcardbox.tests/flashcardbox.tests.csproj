@@ -17,4 +17,13 @@
       <ProjectReference Include="..\flashcardbox\flashcardbox.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="sampledb_sync_processing\flashcardbox.config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="sampledb_sync_processing\flashcards original.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
