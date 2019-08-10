@@ -40,9 +40,9 @@ namespace flashcardbox.messages.commands.sync
         private static Dictionary<string, (string binIndex, string hash)> Load_flashcards(IEventstore es)
             => es.Replay(typeof(NewCardEncountered), typeof(CardWasChanged), typeof(CardMovedTo), typeof(CardFoundMissing))
                 .Events
-                .Aggregate(new Dictionary<string, (string binIndex, string hash)>(), Apply_for_load_flashcards);
+                .Aggregate(new Dictionary<string, (string binIndex, string hash)>(), Apply);
 
-        private static Dictionary<string, (string binIndex, string hash)> Apply_for_load_flashcards(
+        private static Dictionary<string, (string binIndex, string hash)> Apply(
             Dictionary<string, (string binIndex, string hash)> flashcards, 
             Event e)
         {
