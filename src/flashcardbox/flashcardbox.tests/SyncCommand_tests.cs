@@ -13,6 +13,9 @@ namespace flashcardbox.tests
 {
     public class SyncCommand_tests
     {
+        //TODO: test for new card with bin assigned
+        //TODO: overwrite config because it has changed
+        
         [Fact]
         public void Process_without_previous_config()
         {
@@ -40,10 +43,16 @@ namespace flashcardbox.tests
             Assert.IsType<Success>(status);
             events.Should().BeEquivalentTo(new Event[]{
                 new CardImported{Question = "new q1", Answer = "a1", Tags = "t1", Id = events[0].Id}, 
-                new CardMovedTo{CardId = events[0].Id, Id = events[1].Id}, 
+                new CardMovedTo{CardId = events[0].Id, BinIndex = 0, Id = events[1].Id}, 
+                
                 new CardChanged{CardId = "3", Question = "changed q3v2", Answer = "a3", Tags = "", Id = events[2].Id}, 
-                new CardDeleted(){CardId = "99", Id = events[3].Id},
-                new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[4].Id} 
+                
+                new CardImported{Question = "new with bin q4", Answer = "a4", Tags = "t4", Id = events[3].Id}, 
+                new CardMovedTo{CardId = events[3].Id, BinIndex = 9, Id = events[4].Id}, 
+                
+                new CardDeleted(){CardId = "99", Id = events[5].Id},
+                
+                new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[6].Id} 
             });
 
             var flashcards = db.LoadFlashcards();
@@ -51,7 +60,8 @@ namespace flashcardbox.tests
             {
                 new FlashcardRecord{Question = "new q1", Answer = "a1", Tags = "t1", BinIndex = "0", Id = events[0].Id},
                 new FlashcardRecord{Question = "unchanged q2", Answer = "a2", Tags = "t2", BinIndex = "2", Id = "2"},
-                new FlashcardRecord{Question = "changed q3v2", Answer = "a3", Tags = "", BinIndex = "4", Id = "3"}
+                new FlashcardRecord{Question = "changed q3v2", Answer = "a3", Tags = "", BinIndex = "4", Id = "3"},
+                new FlashcardRecord{Question = "new with bin q4", Answer = "a4", Tags = "t4", BinIndex = "9", Id = events[3].Id}
             });
         }
         

@@ -58,7 +58,11 @@ namespace flashcardbox.messages.commands.sync
                 if (string.IsNullOrWhiteSpace(fc.Id)) {
                     // new card found
                     var eImported = new CardImported {Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
-                    var eMoved = new CardMovedTo {CardId = eImported.Id};
+
+                    var eMoved = new CardMovedTo {CardId = eImported.Id, BinIndex = 0};
+                    if (string.IsNullOrWhiteSpace(fc.BinIndex) is false)
+                        eMoved.BinIndex = int.Parse(fc.BinIndex);
+                    
                     yield return eImported;
                     yield return eMoved;
                     
