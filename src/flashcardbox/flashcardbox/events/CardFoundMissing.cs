@@ -2,7 +2,7 @@ using nsimpleeventstore;
 
 namespace flashcardbox.events
 {
-    public class CardDeleted : Event
+    public class CardFoundMissing : Event
     {
         public string CardId;
     }

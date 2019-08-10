@@ -57,7 +57,7 @@ namespace flashcardbox.messages.commands.sync
             IEnumerable<Event> Sync_flashcard(FlashcardRecord fc) {
                 if (string.IsNullOrWhiteSpace(fc.Id)) {
                     // new card found
-                    var eImported = new CardImported {Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
+                    var eImported = new NewCardEncountered {Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
 
                     var eMoved = new CardMovedTo {CardId = eImported.Id, BinIndex = 0};
                     if (string.IsNullOrWhiteSpace(fc.BinIndex) is false)
@@ -73,7 +73,7 @@ namespace flashcardbox.messages.commands.sync
                     // changed card found
                     var fcHash = FlashcardHash.Calculate(fc.Question, fc.Answer, fc.Tags);
                     if (model.Flashcards[fc.Id].hash != fcHash)
-                        yield return new CardChanged{CardId = fc.Id, Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
+                        yield return new CardWasChanged{CardId = fc.Id, Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
                 }
 
                 // always update the binIndex
@@ -83,10 +83,10 @@ namespace flashcardbox.messages.commands.sync
         }
 
 
-        private CardDeleted[] Sync_deleted_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
+        private CardFoundMissing[] Sync_deleted_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
             => (from id in model.Flashcards.Keys
                         where flashcards.Any(fc => fc.Id == id) is false
-                        select new CardDeleted {CardId = id}
+                        select new CardFoundMissing {CardId = id}
                ).ToArray();
 
 

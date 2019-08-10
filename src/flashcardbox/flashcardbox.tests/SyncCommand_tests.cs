@@ -14,8 +14,6 @@ namespace flashcardbox.tests
 {
     public class SyncCommand_tests
     {
-        //TODO: overwrite config because it has changed
-        
         [Fact]
         public void Process_without_previous_config()
         {
@@ -27,6 +25,7 @@ namespace flashcardbox.tests
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
                     {"99", ("3", "xyz")} // to be deleted
                 },
+                // a config will be registered
                 Config = new FlashcardboxConfig()
             };
             var db = new FlashcardboxDb(BOX_PATH);
@@ -42,15 +41,15 @@ namespace flashcardbox.tests
             
             Assert.IsType<Success>(status);
             events.Should().BeEquivalentTo(new Event[]{
-                new CardImported{Question = "new q1", Answer = "a1", Tags = "t1", Id = events[0].Id}, 
+                new NewCardEncountered{Question = "new q1", Answer = "a1", Tags = "t1", Id = events[0].Id}, 
                 new CardMovedTo{CardId = events[0].Id, BinIndex = 0, Id = events[1].Id}, 
                 
-                new CardChanged{CardId = "3", Question = "changed q3v2", Answer = "a3", Tags = "", Id = events[2].Id}, 
+                new CardWasChanged{CardId = "3", Question = "changed q3v2", Answer = "a3", Tags = "", Id = events[2].Id}, 
                 
-                new CardImported{Question = "new with bin q4", Answer = "a4", Tags = "t4", Id = events[3].Id}, 
+                new NewCardEncountered{Question = "new with bin q4", Answer = "a4", Tags = "t4", Id = events[3].Id}, 
                 new CardMovedTo{CardId = events[3].Id, BinIndex = 9, Id = events[4].Id}, 
                 
-                new CardDeleted(){CardId = "99", Id = events[5].Id},
+                new CardFoundMissing(){CardId = "99", Id = events[5].Id},
                 
                 new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[6].Id} 
             });
@@ -77,6 +76,7 @@ namespace flashcardbox.tests
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
                     {"99", ("3", "xyz")} // to be deleted
                 },
+                // this config will get overruled!
                 Config = new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin{
                     LowerDueThreshold = 1,
                     UpperDueThreshold = 2
@@ -100,6 +100,39 @@ namespace flashcardbox.tests
         }
         
         
+        [Fact]
+        public void Process_no_new_config_if_it_hasnt_changed()
+        {
+            const string BOX_PATH = "sampledb_sync_processing";
+            
+            var ctx = new SyncCommandMessageContextModel {
+                Flashcards = new Dictionary<string, (string binIndex, string hash)> {
+                    {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
+                    {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
+                    {"99", ("3", "xyz")} // to be deleted
+                },
+                // no config will be registered because file and event do not differ
+                Config = new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin{
+                    LowerDueThreshold = 10,
+                    UpperDueThreshold = 20
+                }}}
+            };
+            var db = new FlashcardboxDb(BOX_PATH);
+
+            var sut = new SyncCommandProcessor(db);
+            
+            File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
+                Path.Combine(BOX_PATH, "flashcards.csv"), true);
+
+            
+            var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
+
+            
+            Assert.IsType<Success>(status);
+            events.Last().Should().BeOfType<CardFoundMissing>();
+        }
+        
+        
         
         [Fact]
         public void Load_message_context()
@@ -109,14 +142,14 @@ namespace flashcardbox.tests
             {
                 new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 1,UpperDueThreshold = 2} }}, 
                 
-                new CardImported{Question = "q1", Answer = "a1", Tags = "t1", Id = "1"}, 
+                new NewCardEncountered{Question = "q1", Answer = "a1", Tags = "t1", Id = "1"}, 
                 new CardMovedTo{CardId = "1", BinIndex = 0}, 
-                new CardImported{Question = "q2", Answer = "a2", Tags = "t2,t3", Id = "2"},
+                new NewCardEncountered{Question = "q2", Answer = "a2", Tags = "t2,t3", Id = "2"},
                 new CardMovedTo{CardId = "2", BinIndex = 3},
-                new CardImported{Question = "q3", Answer = "a3", Tags = "", Id = "3"},
-                new CardChanged{Question = "q1v2", Answer = "a1v2", Tags = "t1", CardId = "1"},
+                new NewCardEncountered{Question = "q3", Answer = "a3", Tags = "", Id = "3"},
+                new CardWasChanged{Question = "q1v2", Answer = "a1v2", Tags = "t1", CardId = "1"},
                 new CardMovedTo{CardId = "1", BinIndex = 2},
-                new CardDeleted{CardId = "3"}, 
+                new CardFoundMissing{CardId = "3"}, 
                 
                 new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10,UpperDueThreshold = 20} }}
             });

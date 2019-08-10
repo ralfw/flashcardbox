@@ -38,7 +38,7 @@ namespace flashcardbox.messages.commands.sync
 
 
         private static Dictionary<string, (string binIndex, string hash)> Load_flashcards(IEventstore es)
-            => es.Replay(typeof(CardImported), typeof(CardChanged), typeof(CardMovedTo), typeof(CardDeleted))
+            => es.Replay(typeof(NewCardEncountered), typeof(CardWasChanged), typeof(CardMovedTo), typeof(CardFoundMissing))
                 .Events
                 .Aggregate(new Dictionary<string, (string binIndex, string hash)>(), Apply_for_load_flashcards);
 
@@ -47,16 +47,16 @@ namespace flashcardbox.messages.commands.sync
             Event e)
         {
             switch (e) {
-                case CardImported ci:
+                case NewCardEncountered ci:
                     flashcards[ci.Id] = ("0", FlashcardHash.Calculate(ci.Question, ci.Answer, ci.Tags));
                     break;
-                case CardChanged cc:
+                case CardWasChanged cc:
                     flashcards[cc.CardId] = (flashcards[cc.CardId].binIndex, FlashcardHash.Calculate(cc.Question, cc.Answer, cc.Tags));
                     break;
                 case CardMovedTo cm:
                     flashcards[cm.CardId] = (cm.BinIndex.ToString(), flashcards[cm.CardId].hash);
                     break;
-                case CardDeleted cd:
+                case CardFoundMissing cd:
                     flashcards.Remove(cd.CardId);
                     break;
             }
