@@ -104,9 +104,9 @@ namespace flashcardbox.messages.commands.sync
                 for(var i=0; i<model.Config.Bins.Length; i++)
                     if (model.Config.Bins[i].LowerDueThreshold != config.Bins[i].LowerDueThreshold ||
                         model.Config.Bins[i].UpperDueThreshold != config.Bins[i].UpperDueThreshold)
-                        return false;
+                        return true;
                 
-                return true;
+                return false;
             }
 
             BoxConfigured Record_config()

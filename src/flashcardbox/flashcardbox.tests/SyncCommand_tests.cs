@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using flashcardbox.events;
 using flashcardbox.messages.commands;
 using flashcardbox.messages.commands.sync;
@@ -13,7 +14,6 @@ namespace flashcardbox.tests
 {
     public class SyncCommand_tests
     {
-        //TODO: test for new card with bin assigned
         //TODO: overwrite config because it has changed
         
         [Fact]
@@ -64,6 +64,41 @@ namespace flashcardbox.tests
                 new FlashcardRecord{Question = "new with bin q4", Answer = "a4", Tags = "t4", BinIndex = "9", Id = events[3].Id}
             });
         }
+        
+        
+        [Fact]
+        public void Process_and_overwrite_previous_config()
+        {
+            const string BOX_PATH = "sampledb_sync_processing";
+            
+            var ctx = new SyncCommandMessageContextModel {
+                Flashcards = new Dictionary<string, (string binIndex, string hash)> {
+                    {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
+                    {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
+                    {"99", ("3", "xyz")} // to be deleted
+                },
+                Config = new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin{
+                    LowerDueThreshold = 1,
+                    UpperDueThreshold = 2
+                }}}
+            };
+            var db = new FlashcardboxDb(BOX_PATH);
+
+            var sut = new SyncCommandProcessor(db);
+            
+            File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
+                      Path.Combine(BOX_PATH, "flashcards.csv"), true);
+
+            
+            var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
+
+            
+            Assert.IsType<Success>(status);
+            events.Last().Should().BeEquivalentTo(
+                new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[6].Id} 
+            );
+        }
+        
         
         
         [Fact]
