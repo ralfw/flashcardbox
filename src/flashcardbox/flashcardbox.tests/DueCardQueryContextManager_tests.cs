@@ -44,5 +44,40 @@ namespace flashcardbox.tests
                 BinIndex = 2
             });
         }
+        
+        
+        [Fact]
+        public void Load_with_no_due_card_selected()
+        {
+            var es = new InMemoryEventstore();
+            es.Record(new Event[] {
+                new NewCardEncountered{Question = "q1", Answer = "a1", Tags = "t1", Id="1"}, 
+                new CardMovedTo{CardId = "1", BinIndex = 1}, 
+            });
+            var sut = new DueCardQueryContextManager(es);
+
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardQueryContextModel;
+
+            result.DueCard.Should().BeNull();
+        }
+        
+        
+        [Fact]
+        public void Load_with_missing_due_card()
+        {
+            var es = new InMemoryEventstore();
+            es.Record(new Event[] {
+                new NewCardEncountered{Question = "q3", Answer = "a3", Tags = "t3", Id="3"},
+                new CardMovedTo{CardId = "3", BinIndex = 3}, 
+                new DueCardSelected{CardId = "3"},
+                
+                new CardFoundMissing{CardId = "3"},
+            });
+            var sut = new DueCardQueryContextManager(es);
+
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardQueryContextModel;
+
+            result.DueCard.Should().BeNull();
+        }
     }
 }

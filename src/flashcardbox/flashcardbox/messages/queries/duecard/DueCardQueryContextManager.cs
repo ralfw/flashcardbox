@@ -57,7 +57,7 @@ namespace flashcardbox.messages.queries
 
             return flashcards.TryGetValue(dueCardId, out var dueCard) 
                     ? (new DueCardQueryContextModel{DueCard = dueCard}, "") 
-                    : (null, "");
+                    : (new DueCardQueryContextModel(), "");
         }
     }
 }
