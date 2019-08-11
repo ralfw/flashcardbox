@@ -1,6 +1,6 @@
 using nsimplemessagepump.contract;
 
-namespace flashcardbox.messages.queries
+namespace flashcardbox.messages.queries.duecard
 {
     public class DueCardQuery : Query {}
 

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
 using flashcardbox.events;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;
 
-namespace flashcardbox.messages.queries
+namespace flashcardbox.messages.queries.duecard
 {
     internal class DueCardQueryContextModel : IMessageContextModel
     {
