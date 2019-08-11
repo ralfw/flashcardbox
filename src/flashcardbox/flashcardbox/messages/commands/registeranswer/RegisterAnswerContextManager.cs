@@ -17,7 +17,6 @@ namespace flashcardbox.messages.commands.registeranswer
     }
     
     
-    //TODO: write tests for RegisterAnswerContextManager
     internal class RegisterAnswerContextManager : IMessageContextModelLoader
     {
         private readonly IEventstore _es;
