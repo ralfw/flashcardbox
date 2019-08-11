@@ -19,7 +19,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandMessageContextModel {
+            var ctx = new SyncCommandContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -70,7 +70,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandMessageContextModel {
+            var ctx = new SyncCommandContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -105,7 +105,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandMessageContextModel {
+            var ctx = new SyncCommandContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -153,13 +153,13 @@ namespace flashcardbox.tests
                 
                 new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10,UpperDueThreshold = 20} }}
             });
-            var sut = new SyncCommandMessageContextManagement(es);
+            var sut = new SyncCommandContextManagement(es);
             
             
             var result = sut.Load(new SyncCommand());
 
             
-            var ctxModel = result.Ctx as SyncCommandMessageContextModel;
+            var ctxModel = result.Ctx as SyncCommandContextModel;
             
             ctxModel.Config.Should().BeEquivalentTo(new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin {
                 LowerDueThreshold = 10,

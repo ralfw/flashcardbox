@@ -29,7 +29,7 @@ namespace flashcardbox.messages.commands.sync
         
         
         public (CommandStatus, Event[], string, Notification[]) Process(IMessage msg, IMessageContextModel ctx, string version) {
-            var model = ctx as SyncCommandMessageContextModel;
+            var model = ctx as SyncCommandContextModel;
 
             var events0 = Sync_flashcards(model);
             var events1 = Sync_config(model);
@@ -38,7 +38,7 @@ namespace flashcardbox.messages.commands.sync
         }
 
         
-        IEnumerable<Event> Sync_flashcards(SyncCommandMessageContextModel model) {
+        IEnumerable<Event> Sync_flashcards(SyncCommandContextModel model) {
             var flashcards = _db.LoadFlashcards().ToArray();
 
             var events0 = Sync_new_and_changed_flashcards(model, flashcards);
@@ -50,7 +50,7 @@ namespace flashcardbox.messages.commands.sync
         }
         
         
-        private Event[] Sync_new_and_changed_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
+        private Event[] Sync_new_and_changed_flashcards(SyncCommandContextModel model, FlashcardRecord[] flashcards)
         {
             return flashcards.SelectMany(Sync_flashcard).ToArray();        
 
@@ -83,14 +83,14 @@ namespace flashcardbox.messages.commands.sync
         }
 
 
-        private CardFoundMissing[] Sync_deleted_flashcards(SyncCommandMessageContextModel model, FlashcardRecord[] flashcards)
+        private CardFoundMissing[] Sync_deleted_flashcards(SyncCommandContextModel model, FlashcardRecord[] flashcards)
             => (from id in model.Flashcards.Keys
                         where flashcards.Any(fc => fc.Id == id) is false
                         select new CardFoundMissing {CardId = id}
                ).ToArray();
 
 
-        private IEnumerable<Event> Sync_config(SyncCommandMessageContextModel model) {
+        private IEnumerable<Event> Sync_config(SyncCommandContextModel model) {
             var config = _db.LoadConfig();
             if (config.Bins.Length > 0)
                 if (Config_changed())
