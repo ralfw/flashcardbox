@@ -79,5 +79,25 @@ namespace flashcardbox.tests
                 Config = null
             });
         }
+        
+        
+        [Fact]
+        public void Load_no_cards()
+        {
+            var es = new InMemoryEventstore();
+            var sut = new SelectDueCardContextManager(es);
+            es.Record(new Event[] {
+            });
+
+            var result = sut.Load(new SelectDueCardCommand()).Ctx as SelectDueCardContextModel;
+            
+            result.Should().BeEquivalentTo(new SelectDueCardContextModel {
+                Bins = new[] {
+                    new string[0]
+                },
+                
+                Config = null
+            });
+        }
     }
 }
