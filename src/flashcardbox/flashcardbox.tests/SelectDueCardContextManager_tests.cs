@@ -85,7 +85,7 @@ namespace flashcardbox.tests
         
         
         [Fact]
-        public void Load_no_config()
+        public void Load_without_config()
         {
             var es = new InMemoryEventstore();
             var sut = new SelectDueCardContextManager(es);
@@ -107,7 +107,7 @@ namespace flashcardbox.tests
         
         
         [Fact]
-        public void Load_no_cards()
+        public void Load_without_cards()
         {
             var es = new InMemoryEventstore();
             var sut = new SelectDueCardContextManager(es);
