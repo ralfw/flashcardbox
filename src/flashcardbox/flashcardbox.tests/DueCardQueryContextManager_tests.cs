@@ -33,11 +33,11 @@ namespace flashcardbox.tests
                 
                 new CardWasChanged{CardId = "2", Question = "q2v2", Answer = "a2v2", Tags = "t2v2"},
             });
-            var sut = new DueCardQueryContextManager(es);
+            var sut = new DueCardContextManager(es);
 
-            var result = sut.Load(new DueCardQuery()).Ctx as DueCardQueryContextModel;
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardContextModel;
 
-            result.DueCard.Should().BeEquivalentTo(new DueCardQueryResult {
+            result.DueCard.Should().BeEquivalentTo(new DueCardFoundQueryResult {
                 CardId = "2",
                 Question = "q2v2",
                 Answer = "a2v2",
@@ -55,9 +55,9 @@ namespace flashcardbox.tests
                 new NewCardEncountered{Question = "q1", Answer = "a1", Tags = "t1", Id="1"}, 
                 new CardMovedTo{CardId = "1", BinIndex = 1}, 
             });
-            var sut = new DueCardQueryContextManager(es);
+            var sut = new DueCardContextManager(es);
 
-            var result = sut.Load(new DueCardQuery()).Ctx as DueCardQueryContextModel;
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardContextModel;
 
             result.DueCard.Should().BeNull();
         }
@@ -74,9 +74,28 @@ namespace flashcardbox.tests
                 
                 new CardFoundMissing{CardId = "3"},
             });
-            var sut = new DueCardQueryContextManager(es);
+            var sut = new DueCardContextManager(es);
 
-            var result = sut.Load(new DueCardQuery()).Ctx as DueCardQueryContextModel;
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardContextModel;
+
+            result.DueCard.Should().BeNull();
+        }
+        
+        
+        [Fact]
+        public void Load_with_no_due_card_because_it_was_moved()
+        {
+            var es = new InMemoryEventstore();
+            es.Record(new Event[] {
+                new NewCardEncountered{Question = "q1", Answer = "a1", Tags = "t1", Id="1"}, 
+                new CardMovedTo{CardId = "1", BinIndex = 1}, 
+                new DueCardSelected{CardId = "1"},
+                
+                new CardMovedTo{CardId = "1", BinIndex = 2}, 
+            });
+            var sut = new DueCardContextManager(es);
+
+            var result = sut.Load(new DueCardQuery()).Ctx as DueCardContextModel;
 
             result.DueCard.Should().BeNull();
         }

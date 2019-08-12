@@ -10,15 +10,15 @@ namespace flashcardbox.tests
         [Fact]
         public void Process()
         {
-            var sut = new DueCardQueryProcessor();
+            var sut = new DueCardProcessor();
 
-            var ctx = new DueCardQueryContextModel {
-                DueCard = new DueCardQueryResult{CardId = "1", Question = "q1"}
+            var ctx = new DueCardContextModel {
+                DueCard = new DueCardFoundQueryResult(){CardId = "1", Question = "q1"}
             };
             
             var result = sut.Process(new DueCardQuery(), ctx);
             
-            result.Should().BeEquivalentTo(new DueCardQueryResult {
+            result.Should().BeEquivalentTo(new DueCardFoundQueryResult {
                 CardId = "1",
                 Question = "q1"
             });
@@ -28,15 +28,13 @@ namespace flashcardbox.tests
         [Fact]
         public void Process_with_no_due_card_found()
         {
-            var sut = new DueCardQueryProcessor();
+            var sut = new DueCardProcessor();
 
-            var ctx = new DueCardQueryContextModel {
+            var ctx = new DueCardContextModel {
                 DueCard = null
             };
 
-            var result = sut.Process(new DueCardQuery(), ctx) as DueCardQueryResult;
-
-            result.CardId.Should().BeEmpty();
+            sut.Process(new DueCardQuery(), ctx).Should().BeOfType<DueCardNotFoundQueryResult>();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandContextModel {
+            var ctx = new SyncContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -30,7 +30,7 @@ namespace flashcardbox.tests
             };
             var db = new FlashcardboxDb(BOX_PATH);
 
-            var sut = new SyncCommandProcessor(db);
+            var sut = new SyncProcessor(db);
             
             File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
                       Path.Combine(BOX_PATH, "flashcards.csv"), true);
@@ -70,7 +70,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandContextModel {
+            var ctx = new SyncContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -84,7 +84,7 @@ namespace flashcardbox.tests
             };
             var db = new FlashcardboxDb(BOX_PATH);
 
-            var sut = new SyncCommandProcessor(db);
+            var sut = new SyncProcessor(db);
             
             File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
                       Path.Combine(BOX_PATH, "flashcards.csv"), true);
@@ -105,7 +105,7 @@ namespace flashcardbox.tests
         {
             const string BOX_PATH = "sampledb_sync_processing";
             
-            var ctx = new SyncCommandContextModel {
+            var ctx = new SyncContextModel {
                 Flashcards = new Dictionary<string, (string binIndex, string hash)> {
                     {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
                     {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
@@ -119,7 +119,7 @@ namespace flashcardbox.tests
             };
             var db = new FlashcardboxDb(BOX_PATH);
 
-            var sut = new SyncCommandProcessor(db);
+            var sut = new SyncProcessor(db);
             
             File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
                 Path.Combine(BOX_PATH, "flashcards.csv"), true);
@@ -153,13 +153,13 @@ namespace flashcardbox.tests
                 
                 new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10,UpperDueThreshold = 20} }}
             });
-            var sut = new SyncCommandContextManagement(es);
+            var sut = new SyncContextManagement(es);
             
             
             var result = sut.Load(new SyncCommand());
 
             
-            var ctxModel = result.Ctx as SyncCommandContextModel;
+            var ctxModel = result.Ctx as SyncContextModel;
             
             ctxModel.Config.Should().BeEquivalentTo(new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin {
                 LowerDueThreshold = 10,

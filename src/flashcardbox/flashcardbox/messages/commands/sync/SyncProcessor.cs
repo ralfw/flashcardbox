@@ -21,15 +21,15 @@ namespace flashcardbox.messages.commands.sync
      *
      * finally the config is loaded. if has changed it's updated in the event stream.
      */
-    internal class SyncCommandProcessor : ICommandProcessor
+    internal class SyncProcessor : ICommandProcessor
     {
         private readonly FlashcardboxDb _db;
 
-        public SyncCommandProcessor(FlashcardboxDb db) { _db = db; }
+        public SyncProcessor(FlashcardboxDb db) { _db = db; }
         
         
         public (CommandStatus, Event[], string, Notification[]) Process(IMessage msg, IMessageContextModel ctx, string version) {
-            var model = ctx as SyncCommandContextModel;
+            var model = ctx as SyncContextModel;
 
             var events0 = Sync_flashcards(model);
             var events1 = Sync_config(model);
@@ -38,7 +38,7 @@ namespace flashcardbox.messages.commands.sync
         }
 
         
-        IEnumerable<Event> Sync_flashcards(SyncCommandContextModel model) {
+        IEnumerable<Event> Sync_flashcards(SyncContextModel model) {
             var flashcards = _db.LoadFlashcards().ToArray();
 
             var events0 = Sync_new_and_changed_flashcards(model, flashcards);
@@ -50,7 +50,7 @@ namespace flashcardbox.messages.commands.sync
         }
         
         
-        private Event[] Sync_new_and_changed_flashcards(SyncCommandContextModel model, FlashcardRecord[] flashcards)
+        private Event[] Sync_new_and_changed_flashcards(SyncContextModel model, FlashcardRecord[] flashcards)
         {
             return flashcards.SelectMany(Sync_flashcard).ToArray();        
 
@@ -83,14 +83,14 @@ namespace flashcardbox.messages.commands.sync
         }
 
 
-        private CardFoundMissing[] Sync_deleted_flashcards(SyncCommandContextModel model, FlashcardRecord[] flashcards)
+        private CardFoundMissing[] Sync_deleted_flashcards(SyncContextModel model, FlashcardRecord[] flashcards)
             => (from id in model.Flashcards.Keys
                         where flashcards.Any(fc => fc.Id == id) is false
                         select new CardFoundMissing {CardId = id}
                ).ToArray();
 
 
-        private IEnumerable<Event> Sync_config(SyncCommandContextModel model) {
+        private IEnumerable<Event> Sync_config(SyncContextModel model) {
             var config = _db.LoadConfig();
             if (config.Bins.Length > 0)
                 if (Config_changed())

@@ -15,22 +15,22 @@ namespace flashcardbox.messages.commands.sync
      * -(upper due threshold, lower due threshold)* // FlashcardboxConfig
      * 
      */
-    internal class SyncCommandContextModel : IMessageContextModel
+    internal class SyncContextModel : IMessageContextModel
     {
         public Dictionary<string, (string binIndex, string hash)> Flashcards;
         public FlashcardboxConfig Config;
     }
     
     
-    internal class SyncCommandContextManagement : IMessageContextModelLoader
+    internal class SyncContextManagement : IMessageContextModelLoader
     {
         private readonly IEventstore _es;
 
-        public SyncCommandContextManagement(IEventstore es) { _es = es; }
+        public SyncContextManagement(IEventstore es) { _es = es; }
 
 
         public (IMessageContextModel Ctx, string Version) Load(IMessage msg)
-            => (new SyncCommandContextModel {
+            => (new SyncContextModel {
                     Flashcards = Load_flashcards(_es),
                     Config = Load_config(_es)
                 },
