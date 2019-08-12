@@ -40,11 +40,11 @@ namespace flashcardbox.tests
             var result = sut.Load(new SelectDueCardCommand()).Ctx as SelectDueCardContextModel;
             
             result.Should().BeEquivalentTo(new SelectDueCardContextModel {
-                Bins = new List<List<string>> {
-                    new List<string>(),
-                    new List<string> {"1"},
-                    new List<string> {"2.1", "2.2"},
-                    new List<string> {"3.1", "3.2", "3.3"}
+                Bins = new[] {
+                    new string[0],
+                    new[]{"1"},
+                    new[]{"2.1", "2.2"},
+                    new[]{"3.1", "3.2", "3.3"}
                 },
                 
                 Config = new FlashcardboxConfig {
