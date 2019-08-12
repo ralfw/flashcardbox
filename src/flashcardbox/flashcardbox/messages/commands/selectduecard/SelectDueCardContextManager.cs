@@ -20,7 +20,7 @@ namespace flashcardbox.messages.commands.selectduecard
      *
      * There is always a bin 0, even if never any card was moved there.
      * 
-     * Find the most recent config. If there is none then the command fails.
+     * Find the most recent config; maybe there is none.
      */
     internal class SelectDueCardContextManager : IMessageContextModelLoader
     {
@@ -37,10 +37,14 @@ namespace flashcardbox.messages.commands.selectduecard
                 "");
 
 
-        private static string[][] Fill_bins(Event[] events)
-        {
+        private static string[][] Fill_bins(Event[] events) {
+            var sparseBins = Fill_bins_sparsely(events);
+            return Map_sparse_bins(sparseBins);
+        }
+
+        private static Dictionary<int, List<string>> Fill_bins_sparsely(Event[] events) {
             var sparseBins = new Dictionary<int, List<string>> {[0] = new List<string>()};
-            foreach(var e in events)
+            foreach (var e in events)
                 switch (e) {
                     case CardMovedTo cmt:
                         Remove_card(cmt.CardId);
@@ -50,19 +54,9 @@ namespace flashcardbox.messages.commands.selectduecard
                         Remove_card(cfm.CardId);
                         break;
                 }
+            return sparseBins;
             
             
-            var bins = new List<string[]>();
-            foreach (var i in Enumerable.Range(0, sparseBins.Keys.Max() + 1)) {
-                if (sparseBins.ContainsKey(i))
-                    bins.Add(sparseBins[i].ToArray());
-                else
-                    bins.Add(new string[0]);
-            }
-            return bins.ToArray();
-            
-
-
             void Remove_card(string cardId) {
                 foreach (var bin in sparseBins)
                     if (bin.Value.Remove(cardId))
@@ -75,7 +69,16 @@ namespace flashcardbox.messages.commands.selectduecard
                 sparseBins[binIndex].Add(cardId);
             }
         }
-        
+
+        private static string[][] Map_sparse_bins(Dictionary<int, List<string>> sparseBins) {
+            var bins = new List<string[]>();
+            foreach (var i in Enumerable.Range(0, sparseBins.Keys.Max() + 1))
+                bins.Add(sparseBins.ContainsKey(i) 
+                            ? sparseBins[i].ToArray() 
+                            : new string[0]);
+            return bins.ToArray();
+        }
+
         
         private static FlashcardboxConfig Get_config(Event[] events)
         {
