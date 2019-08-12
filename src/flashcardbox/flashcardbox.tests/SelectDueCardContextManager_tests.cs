@@ -60,6 +60,31 @@ namespace flashcardbox.tests
         
         
         [Fact]
+        public void Load_with_empty_bin()
+        {
+            var es = new InMemoryEventstore();
+            var sut = new SelectDueCardContextManager(es);
+            es.Record(new Event[] {
+                new CardMovedTo{CardId = "1", BinIndex = 1},
+                new CardMovedTo{CardId = "3", BinIndex = 3},
+            });
+
+            var result = sut.Load(new SelectDueCardCommand()).Ctx as SelectDueCardContextModel;
+            
+            result.Should().BeEquivalentTo(new SelectDueCardContextModel {
+                Bins = new[] {
+                    new string[0],
+                    new[]{"1"},
+                    new string[0],
+                    new[]{"3"}
+                },
+                
+                Config = null
+            });
+        }
+        
+        
+        [Fact]
         public void Load_no_config()
         {
             var es = new InMemoryEventstore();
