@@ -57,5 +57,27 @@ namespace flashcardbox.tests
                 }
             });
         }
+        
+        
+        [Fact]
+        public void Load_no_config()
+        {
+            var es = new InMemoryEventstore();
+            var sut = new SelectDueCardContextManager(es);
+            es.Record(new Event[] {
+                new CardMovedTo{CardId = "1", BinIndex = 1},
+            });
+
+            var result = sut.Load(new SelectDueCardCommand()).Ctx as SelectDueCardContextModel;
+            
+            result.Should().BeEquivalentTo(new SelectDueCardContextModel {
+                Bins = new[] {
+                    new string[0],
+                    new[]{"1"},
+                },
+                
+                Config = null
+            });
+        }
     }
 }
