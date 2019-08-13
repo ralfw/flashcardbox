@@ -70,7 +70,8 @@ namespace flashcardbox
             if (File.Exists(filepath) is false) return DEFAULT_FLASHCARDBOX_CONFIG;
             
             var configJson = File.ReadAllText(filepath);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<FlashcardboxConfig>(configJson);
+            var config = Newtonsoft.Json.JsonConvert.DeserializeObject<FlashcardboxConfig>(configJson);
+            return config.Bins.Length == 0 ? DEFAULT_FLASHCARDBOX_CONFIG : config;
         }
     }
 

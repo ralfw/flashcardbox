@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using flashcardbox.events;
@@ -74,7 +75,7 @@ namespace flashcardbox.messages.commands.selectduecard
 
         private static string[][] Map_sparse_bins(Dictionary<int, List<string>> sparseBins) {
             var bins = new List<string[]>();
-            foreach (var i in Enumerable.Range(0, sparseBins.Keys.Max() + 1))
+            foreach (var i in Enumerable.Range(0, Math.Max(2, sparseBins.Keys.Max() + 1)))
                 bins.Add(sparseBins.ContainsKey(i) 
                             ? sparseBins[i].ToArray() 
                             : new string[0]);

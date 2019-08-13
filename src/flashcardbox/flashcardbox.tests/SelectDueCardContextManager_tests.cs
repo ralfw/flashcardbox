@@ -128,7 +128,8 @@ namespace flashcardbox.tests
             
             result.Should().BeEquivalentTo(new SelectDueCardContextModel {
                 Bins = new[] {
-                    new string[0]
+                    new string[0], // bin 0 and
+                    new string[0]  // bin 1 always get created
                 },
                 
                 DueBinIndex = -1,
