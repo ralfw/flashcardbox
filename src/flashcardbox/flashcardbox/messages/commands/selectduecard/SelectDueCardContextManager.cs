@@ -10,6 +10,7 @@ namespace flashcardbox.messages.commands.selectduecard
     internal class SelectDueCardContextModel : IMessageContextModel
     {
         public string[][] Bins;
+        public int DueBinIndex;
         public FlashcardboxConfig Config;
     }
     
@@ -32,6 +33,7 @@ namespace flashcardbox.messages.commands.selectduecard
         public (IMessageContextModel Ctx, string Version) Load(IMessage msg)
             => (new SelectDueCardContextModel {
                     Bins = Fill_bins(_es.Replay(typeof(CardMovedTo), typeof(CardFoundMissing)).Events),
+                    DueBinIndex = Get_due_bin_index(_es.Replay(typeof(DueCardSelected)).Events),
                     Config = Get_config(_es.Replay(typeof(BoxConfigured)).Events)
                 },
                 "");
@@ -79,7 +81,15 @@ namespace flashcardbox.messages.commands.selectduecard
             return bins.ToArray();
         }
 
-        
+
+
+        private static int Get_due_bin_index(Event[] events) {
+            var e = events.LastOrDefault();
+            if (e == null) return -1;
+            return (e as DueCardSelected).BinIndex;
+        }
+
+
         private static FlashcardboxConfig Get_config(Event[] events)
         {
             if (events.Length == 0) return null;

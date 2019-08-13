@@ -27,14 +27,18 @@ namespace flashcardbox.tests
                 new CardMovedTo{CardId = "1", BinIndex = 1},
                 new CardMovedTo{CardId = "2.1", BinIndex = 2},
                 new CardMovedTo{CardId = "2.2", BinIndex = 1},
+                new DueCardSelected{CardId = "2.2", BinIndex = 1},
+                
                 new CardMovedTo{CardId = "3.1", BinIndex = 3},
                 new CardMovedTo{CardId = "3.2", BinIndex = 3},
                 new CardMovedTo{CardId = "3.3", BinIndex = 1},
                 new CardMovedTo{CardId = "3.x", BinIndex = 3},
                 
                 new CardMovedTo{CardId = "2.2", BinIndex = 2},
+                
                 new CardFoundMissing{CardId = "3.x"}, 
-                new CardMovedTo{CardId = "3.3", BinIndex = 3}
+                new CardMovedTo{CardId = "3.3", BinIndex = 3},
+                new DueCardSelected{CardId = "3.3", BinIndex = 3}
             });
 
             var result = sut.Load(new SelectDueCardCommand()).Ctx as SelectDueCardContextModel;
@@ -46,6 +50,8 @@ namespace flashcardbox.tests
                     new[]{"2.1", "2.2"},
                     new[]{"3.1", "3.2", "3.3"}
                 },
+                
+                DueBinIndex = 3,
                 
                 Config = new FlashcardboxConfig {
                     Bins = new [] {
@@ -79,6 +85,8 @@ namespace flashcardbox.tests
                     new[]{"3"}
                 },
                 
+                DueBinIndex = -1,
+                
                 Config = null
             });
         }
@@ -101,6 +109,8 @@ namespace flashcardbox.tests
                     new[]{"1"},
                 },
                 
+                DueBinIndex = -1,
+                
                 Config = null
             });
         }
@@ -120,6 +130,8 @@ namespace flashcardbox.tests
                 Bins = new[] {
                     new string[0]
                 },
+                
+                DueBinIndex = -1,
                 
                 Config = null
             });
