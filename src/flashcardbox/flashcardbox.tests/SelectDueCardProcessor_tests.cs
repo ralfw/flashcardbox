@@ -9,13 +9,7 @@ namespace flashcardbox.tests
 {
     public class SelectDueCardProcessor_tests
     {
-        /*
-         * 3 bins configured  -> there should be 5 bins(0, 1..3, 4 (archive))
-         * - select bin 1, although others are full, too
-         * - select bin 3, because bin 1 is empty, but 2 is full, too
-         * - select bin 2, because bin 1 is empty and 3, too
-         */
-        private static FlashcardboxConfig __CONFIG = new FlashcardboxConfig {
+        private static readonly FlashcardboxConfig __CONFIG = new FlashcardboxConfig {
             Bins = new [] {
                 new FlashcardboxConfig.Bin {
                     LowerDueThreshold = 2,
@@ -63,7 +57,7 @@ namespace flashcardbox.tests
         
         
         [Fact]
-        public void No_due_bin_continue_at_from_last_bin_after_bin_1()
+        public void No_due_bin_at_1_continue_from_last_bin_before_archive()
         {
             var sut = new SelectDueCardProcessor();
             var ctx = new SelectDueCardContextModel
