@@ -31,42 +31,47 @@ namespace flashcardbox.messages.commands.selectduecard
             if (model.Config == null)
                 return (new Failure("Cannot select due card! Missing box configuration."), new Event[0], "", new Notification[0]);
 
-            var events = new List<Event>();
-            
-            var binsToCheck = new[] {model.DueBinIndex, 1}.Concat(Enumerable.Range(2, model.Config.Bins.Length - 1).Reverse());
-            var dueBinIndex = binsToCheck.FirstOrDefault(binIndex => Check_bin(binIndex, model));
-            if (dueBinIndex > 0)
-            {
-                // there is at least 1 card in a due bin, otherwise it would not have been selected as due
-                events.Add(new DueCardSelected{CardId = model.Bins[dueBinIndex].First(), BinIndex = dueBinIndex});
-            }
-            else
-            {
-                // fill bin 1 from bin 0
-                var additionalCardsForBin1 = model.Bins[0].Take(model.Config.Bins[0].UpperDueThreshold - model.Bins[1].Length).ToArray();
-                events.AddRange(additionalCardsForBin1.Select(cardId => new CardMovedTo{CardId = cardId, BinIndex = 1}));
-                model.Bins[1] = model.Bins[1].Concat(additionalCardsForBin1).ToArray();
+            var events = Select_due_bin_in_specific_order(model);
+            if (No_due_bin_selected()) events = Fill_bin_1_and_select(model);
+            if (No_due_bin_selected()) events = Select_first_bin_with_cards(model);
+            return No_due_bin_selected()
+                ? ((CommandStatus) new Failure("Not enough cards in box to select due bin."), new Event[0], "", new Notification[0])
+                : (new Success(), events, "", new Notification[0]);
 
-                if (Check_bin(1, model)) {
-                    events.Add(new DueCardSelected {CardId = model.Bins[1].First(), BinIndex = 1});
-                }
-                else
-                {
-                    for(var i=1; i<model.Bins.Length-2; i++)
-                        if (model.Bins[i].Length > 0) {
-                            events.Add(new DueCardSelected {CardId = model.Bins[i].First(), BinIndex = i});
-                            break;
-                        }
-                }
-            }
 
-            if (events.Count == 0)
-                return (new Failure("Not enough cards in box to select due bin."), new Event[0], "",new Notification[0]);
-            
-            return (new Success(), events.ToArray(), "", new Notification[0]);
+            bool No_due_bin_selected()
+                => events.Length == 0;
         }
 
 
+        private static Event[] Select_due_bin_in_specific_order(SelectDueCardContextModel model) {
+            var dueBinIndex = Order_in_which_to_check_bins().FirstOrDefault(binIndex => Check_bin(binIndex, model));
+
+            return dueBinIndex > 0 
+                    ? new[]{new DueCardSelected{CardId = model.Bins[dueBinIndex].First(), BinIndex = dueBinIndex}} 
+                    : new Event[0];
+
+
+            IEnumerable<int> Order_in_which_to_check_bins()
+                => new[] {model.DueBinIndex, 
+                          1}
+                         .Concat(Enumerable.Range(2, model.Config.Bins.Length - 1).Reverse());
+        }
+
+
+        private static Event[] Fill_bin_1_and_select(SelectDueCardContextModel model) {
+            var additionalCardsForBin1 = model.Bins[0].Take(model.Config.Bins[0].UpperDueThreshold - model.Bins[1].Length).ToArray();
+            model.Bins[1] = model.Bins[1].Concat(additionalCardsForBin1).ToArray();
+
+            var events = additionalCardsForBin1.Select(cardId => new CardMovedTo {CardId = cardId, BinIndex = 1}).ToList<Event>();
+            
+            if (Check_bin(1, model))
+                events.Add(new DueCardSelected {CardId = model.Bins[1].First(), BinIndex = 1});
+
+            return events.ToArray();
+        }
+        
+        
         private static bool Check_bin(int binIndex, SelectDueCardContextModel model) {
             if (binIndex <= 0) return false;
             if (binIndex >= model.Bins.Length) return false;
@@ -80,6 +85,14 @@ namespace flashcardbox.messages.commands.selectduecard
                 return model.Bins[binIndex].Length >= model.Config.Bins[configIndex].LowerDueThreshold;
             
             return model.Bins[binIndex].Length >= model.Config.Bins[configIndex].UpperDueThreshold;
+        }
+
+
+        private static Event[] Select_first_bin_with_cards(SelectDueCardContextModel model) {
+            for(var i=1; i<model.Bins.Length-2; i++)
+                if (model.Bins[i].Length > 0)
+                    return new[] {new DueCardSelected {CardId = model.Bins[i].First(), BinIndex = i}};
+            return new Event[0];
         }
     }
 }
