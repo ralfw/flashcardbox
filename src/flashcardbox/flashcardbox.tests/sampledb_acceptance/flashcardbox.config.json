@@ -1,0 +1,12 @@
+{
+  "Bins": [
+    {
+      "LowerDueThreshold": 2,
+      "UpperDueThreshold": 4
+    },
+    {
+      "LowerDueThreshold": 3,
+      "UpperDueThreshold": 5
+    }
+  ]
+}
