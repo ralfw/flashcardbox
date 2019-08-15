@@ -90,10 +90,18 @@ namespace flashcardbox.tests
                         LowerDueThreshold = 2,
                         UpperDueThreshold = 4
                     }, 
+                    new ProgressQueryResult.Bin {
+                        Count = 0,
+                        LowerDueThreshold = 3,
+                        UpperDueThreshold = 5,
+                        IsDue = true
+                    }, 
+                    new ProgressQueryResult.Bin()
                 }
             });
             result.TotalCount.Should().Be(5);
         }
+        
         
         [Fact]
         public void More_bins_than_config()
