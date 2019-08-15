@@ -358,5 +358,42 @@ namespace flashcardbox.tests
 
             status.Should().BeOfType<Failure>();
         }
+        
+        
+        
+        [Fact]
+        public void Last_bin_is_selected_as_first_with_any_cards_in_it()
+        {
+            var sut = new SelectDueCardProcessor();
+            var ctx = new SelectDueCardContextModel
+            {
+                Bins = new[]
+                {
+                    new string[0],
+                    new string[0],
+                    new[]{"1","2","3"},
+                    new[]{"a","b","c","d","e","f","g"}
+                },
+                
+                DueBinIndex = 1,
+                
+                Config = new FlashcardboxConfig {
+                    Bins = new [] {
+                        new FlashcardboxConfig.Bin {
+                            LowerDueThreshold = 2,
+                            UpperDueThreshold = 4
+                        }, 
+                        new FlashcardboxConfig.Bin {
+                            LowerDueThreshold = 3,
+                            UpperDueThreshold = 5
+                        }
+                    }
+                }
+            };
+            
+            var (status, _, _, _) = sut.Process(new SelectDueCardCommand(), ctx, "");
+
+            status.Should().BeOfType<Success>();
+        }
     }
 }

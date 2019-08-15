@@ -8,5 +8,7 @@ namespace flashcardbox.events
         public string Question;
         public string Answer;
         public string Tags;
+        
+        public override string ToString() => $"CardWasChanged({CardId},Q:{Question},A:{Answer},T:{Tags})";
     }
 }
