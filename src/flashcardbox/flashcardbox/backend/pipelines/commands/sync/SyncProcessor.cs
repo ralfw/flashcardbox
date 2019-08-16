@@ -3,6 +3,7 @@ using System.Linq;
 using flashcardbox.backend.adapters;
 using flashcardbox.backend.events;
 using flashcardbox.messages;
+using flashcardbox.messages.commands;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;

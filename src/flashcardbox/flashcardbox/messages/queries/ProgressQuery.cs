@@ -1,7 +1,7 @@
 using System.Linq;
 using nsimplemessagepump.contract;
 
-namespace flashcardbox.messages
+namespace flashcardbox.messages.queries
 {
     public class ProgressQuery : Query {}
 

@@ -3,6 +3,7 @@ using flashcardbox.backend.adapters;
 using flashcardbox.backend.events;
 using flashcardbox.backend.pipelines.commands.sync;
 using flashcardbox.messages;
+using flashcardbox.messages.commands;
 using FluentAssertions;
 using nsimpleeventstore;
 using Xunit;

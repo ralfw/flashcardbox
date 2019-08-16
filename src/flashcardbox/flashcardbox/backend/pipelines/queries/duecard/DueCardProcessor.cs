@@ -1,4 +1,5 @@
 using flashcardbox.messages;
+using flashcardbox.messages.queries;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;
 using nsimplemessagepump.contract.messageprocessing;

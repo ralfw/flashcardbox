@@ -2,6 +2,7 @@ using flashcardbox.backend.adapters;
 using flashcardbox.backend.pipelines.commands.selectduecard;
 using flashcardbox.backend.pipelines.queries.progress;
 using flashcardbox.messages;
+using flashcardbox.messages.queries;
 using FluentAssertions;
 using Xunit;
 

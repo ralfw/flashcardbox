@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using flashcardbox.backend.events;
 using flashcardbox.backend.pipelines.commands.registeranswer;
 using flashcardbox.messages;
+using flashcardbox.messages.commands;
 using FluentAssertions;
 using nsimplemessagepump.contract;
 using Xunit;

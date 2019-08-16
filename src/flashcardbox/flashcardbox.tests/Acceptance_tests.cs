@@ -7,6 +7,8 @@ using flashcardbox.backend.pipelines.commands.sync;
 using flashcardbox.backend.pipelines.queries.duecard;
 using flashcardbox.backend.pipelines.queries.progress;
 using flashcardbox.messages;
+using flashcardbox.messages.commands;
+using flashcardbox.messages.queries;
 using FluentAssertions;
 using nsimpleeventstore;
 using nsimplemessagepump;

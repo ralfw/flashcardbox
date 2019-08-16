@@ -1,5 +1,6 @@
 using flashcardbox.backend.events;
 using flashcardbox.messages;
+using flashcardbox.messages.commands;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;

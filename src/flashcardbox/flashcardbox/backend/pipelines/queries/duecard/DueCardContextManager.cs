@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using flashcardbox.backend.events;
 using flashcardbox.messages;
+using flashcardbox.messages.queries;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;
 using nsimplemessagepump.contract.messagecontext;
