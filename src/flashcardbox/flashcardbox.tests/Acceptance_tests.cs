@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using flashcardbox.backend.adapters;
+using flashcardbox.backend.integration;
 using flashcardbox.backend.pipelines.commands.registeranswer;
 using flashcardbox.backend.pipelines.commands.selectduecard;
 using flashcardbox.backend.pipelines.commands.sync;
@@ -35,17 +36,10 @@ namespace flashcardbox.tests
             
             var db = new FlashcardboxDb(DBPATH);
             var es = new InMemoryEventstore();
-            var mp = new MessagePump(es);
-
-            mp.On<SyncCommand>().Load(new SyncContextManagement(es)).Do(new SyncProcessor(db));
-            mp.On<SelectDueCardCommand>().Load(new SelectDueCardContextManager(es)).Do(new SelectDueCardProcessor());
-            mp.On<RegisterAnswerCommand>().Load(new RegisterAnswerContextManager(es)).Do(new RegisterAnswerProcessor());
-            
-            mp.On<DueCardQuery>().Load(new DueCardContextManager(es)).Do(new DueCardProcessor());
-            mp.On<ProgressQuery>().Load(new ProgressContextManager(es)).Do(new ProgressProcessor());
+            var mh = new MessageHandling(es, db);
 
             // box not yet initialized
-            var progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            var progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin(), 
@@ -54,9 +48,9 @@ namespace flashcardbox.tests
             });
 
             // box initialized
-            var status = mp.Handle(new SyncCommand()).Msg as CommandStatus;
-            status.Should().BeOfType<Success>();
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            var status = mh.Handle(new SyncCommand());
+            status.Should().BeOfType<SyncSuccess>();
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -75,9 +69,9 @@ namespace flashcardbox.tests
             });
             
             // learn first card
-            status = mp.Handle(new SelectDueCardCommand()).Msg as CommandStatus;
+            status = mh.Handle(new SelectDueCardCommand());
             status.Should().BeOfType<Success>();
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -97,12 +91,12 @@ namespace flashcardbox.tests
                 }
             });
             
-            var card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            var card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("a");
             
-            status = mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true}).Msg as CommandStatus;
+            status = mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
             status.Should().BeOfType<Success>();
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -124,11 +118,11 @@ namespace flashcardbox.tests
             });
             
             // learn second card
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("1");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -150,11 +144,11 @@ namespace flashcardbox.tests
             });
             
             // learn card 3
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("2");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -176,11 +170,11 @@ namespace flashcardbox.tests
             });
             
             // learning card 4 first leads to a refill of bin 1
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("b");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -202,18 +196,18 @@ namespace flashcardbox.tests
             });
             
             // learning card 5 fills up bin 2...
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("c");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
             
             // ...but bin 1 stays due because its lower threshold hasn't been reached
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("d");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
             
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -235,12 +229,12 @@ namespace flashcardbox.tests
             });
             
             // this only changes now!
-            mp.Handle(new SelectDueCardCommand());
-            card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
+            mh.Handle(new SelectDueCardCommand());
+            card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
             card.Question.Should().Be("a");
-            mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+            mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
             
-            progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            progress = mh.Handle(new ProgressQuery());
             progress.Should().BeEquivalentTo(new ProgressQueryResult {
                 Bins = new[] {
                     new ProgressQueryResult.Bin {
@@ -269,13 +263,13 @@ namespace flashcardbox.tests
             // g(0,0,3-3fg,7-a12bcde), 3(0,0,2-fg,8-a12bcde3), f(0,0,1-g,9-a12bcde3f), g(0,0,0,10-a12bcde3fg)
             
             foreach (var q in "12be3fcdeg3fg".ToCharArray()) {
-                mp.Handle(new SelectDueCardCommand());
-                card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
-                mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+                mh.Handle(new SelectDueCardCommand());
+                card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
+                mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
                 card.Question.Should().Be(q.ToString());
             }
 
-            mp.Handle(new SelectDueCardCommand()).Msg.Should().BeOfType<Failure>();
+            mh.Handle(new SelectDueCardCommand()).Should().BeOfType<Failure>();
         }
 
         
@@ -287,17 +281,11 @@ namespace flashcardbox.tests
             
             var db = new FlashcardboxDb(DBPATH);
             var es = new InMemoryEventstore();
-            var mp = new MessagePump(es);
+            var mh = new MessageHandling(es, db);
 
-            mp.On<SyncCommand>().Load(new SyncContextManagement(es)).Do(new SyncProcessor(db));
-            mp.On<SelectDueCardCommand>().Load(new SelectDueCardContextManager(es)).Do(new SelectDueCardProcessor());
-            mp.On<RegisterAnswerCommand>().Load(new RegisterAnswerContextManager(es)).Do(new RegisterAnswerProcessor());
-            
-            mp.On<DueCardQuery>().Load(new DueCardContextManager(es)).Do(new DueCardProcessor());
-            mp.On<ProgressQuery>().Load(new ProgressContextManager(es)).Do(new ProgressProcessor());
 
             // box initialized
-            var status = mp.Handle(new SyncCommand()).Msg as CommandStatus;
+            var status = mh.Handle(new SyncCommand());
 
             // 0:a12bcde3fg,1:,2:,3:
             Memorized("a"); //0:cde3fg,1:12b*,2:a,3:
@@ -333,30 +321,30 @@ namespace flashcardbox.tests
             Memorized("1"); //0:,1:*,2:f*,3:a2ecb3dg1
             Memorized("f"); //0:,1:*,2:*,3:a2ecb3dg1f
 
-            mp.Handle(new SelectDueCardCommand()).Msg.Should().BeOfType<Failure>();
+            mh.Handle(new SelectDueCardCommand()).Should().BeOfType<Failure>();
             
 
             void Memorized(string question) {
-                mp.Handle(new SelectDueCardCommand());
-                var card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
-                mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
+                mh.Handle(new SelectDueCardCommand());
+                var card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
+                mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = true});
                 card.Question.Should().Be(question);
             }
             
             void Forgotten(string question) {
-                mp.Handle(new SelectDueCardCommand());
-                var card = mp.Handle(new DueCardQuery()).Msg as DueCardFoundQueryResult;
-                mp.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = false});
+                mh.Handle(new SelectDueCardCommand());
+                var card = mh.Handle(new DueCardQuery()) as DueCardFoundQueryResult;
+                mh.Handle(new RegisterAnswerCommand{CardId = card.CardId, CorrectlyAnswered = false});
                 card.Question.Should().Be(question);
             }
         }
         
         
 
-        private void DumpProgress(MessagePump mp)
+        private void DumpProgress(MessageHandling mh)
         {
             _testOutputHelper.WriteLine("------");
-            var progress = mp.Handle(new ProgressQuery()).Msg as ProgressQueryResult;
+            var progress = mh.Handle(new ProgressQuery());
             for(var i=0; i<progress.Bins.Length; i++)
                 _testOutputHelper.WriteLine($"{i}.({progress.Bins[i].Count}){(progress.Bins[i].IsDue?'*':' ')}");
         }
@@ -371,10 +359,10 @@ namespace flashcardbox.tests
         }
 
 
-        private void DumpDb(MessagePump mp, FlashcardboxDb db)
+        private void DumpDb(MessageHandling mh, FlashcardboxDb db)
         {
             _testOutputHelper.WriteLine("<<<");
-            mp.Handle(new SyncCommand());
+            mh.Handle(new SyncCommand());
             var cards = db.LoadFlashcards();
             foreach (var card in cards.OrderBy(c => c.BinIndex)) {
                 _testOutputHelper.WriteLine($"{card.BinIndex}:{card.Question}");
