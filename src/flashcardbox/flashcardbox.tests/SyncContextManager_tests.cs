@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using flashcardbox.adapters;
 using flashcardbox.events;
 using flashcardbox.messages.commands.sync;
 using FluentAssertions;

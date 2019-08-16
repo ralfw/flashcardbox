@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using flashcardbox.adapters;
 using flashcardbox.events;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;
@@ -67,7 +68,7 @@ namespace flashcardbox.messages.commands.sync
 
             IEnumerable<Event> Sync_flashcard(FlashcardRecord fc) {
                 if (string.IsNullOrWhiteSpace(fc.Id)) {
-                    // new card found
+                    // new card found; if it comes with a bin then keep it
                     var eImported = new NewCardEncountered {Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
 
                     var eMoved = new CardMovedTo {CardId = eImported.Id, BinIndex = 0};
@@ -87,7 +88,7 @@ namespace flashcardbox.messages.commands.sync
                         yield return new CardWasChanged{CardId = fc.Id, Question = fc.Question, Answer = fc.Answer, Tags = fc.Tags};
                 }
 
-                // always update the binIndex
+                // always update the binIndex in the flashcard record to be written back to the file
                 if (model.Flashcards.ContainsKey(fc.Id))
                     fc.BinIndex = model.Flashcards[fc.Id].binIndex;
             }

@@ -1,3 +1,4 @@
+using flashcardbox.adapters;
 using flashcardbox.events;
 using flashcardbox.messages.commands.selectduecard;
 using FluentAssertions;

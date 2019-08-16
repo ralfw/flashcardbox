@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using flashcardbox.adapters;
 using flashcardbox.events;
 using flashcardbox.messages.commands;
 using flashcardbox.messages.commands.sync;

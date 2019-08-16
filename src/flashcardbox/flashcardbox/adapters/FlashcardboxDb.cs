@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using CsvHelper;
 
-namespace flashcardbox
+namespace flashcardbox.adapters
 {
     public class FlashcardboxDb
     {
@@ -41,6 +40,7 @@ namespace flashcardbox
 
                 csv.Read(); // header
                 csv.ReadHeader(); // parse (badly named method!)
+                // after this the column names are known an get used for field access
 
                 while (csv.Read())
                     yield return new FlashcardRecord {
@@ -73,25 +73,5 @@ namespace flashcardbox
             var config = Newtonsoft.Json.JsonConvert.DeserializeObject<FlashcardboxConfig>(configJson);
             return config.Bins.Length == 0 ? DEFAULT_FLASHCARDBOX_CONFIG : config;
         }
-    }
-
-    
-    public class FlashcardboxConfig
-    {
-        public class Bin {
-            public int UpperDueThreshold;
-            public int LowerDueThreshold;
-        }
-        
-        public Bin[] Bins = new Bin[0];
-    }
-
-    
-    public class FlashcardRecord {
-        public string Id { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
-        public string Tags { get; set; }
-        public string BinIndex { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using flashcardbox.adapters;
 using flashcardbox.messages.commands.registeranswer;
 using flashcardbox.messages.commands.selectduecard;
 using flashcardbox.messages.commands.sync;
