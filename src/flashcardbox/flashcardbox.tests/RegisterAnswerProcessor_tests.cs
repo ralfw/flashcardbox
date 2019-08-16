@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using flashcardbox.events;
-using flashcardbox.messages.commands.registeranswer;
+using flashcardbox.backend.events;
+using flashcardbox.backend.pipelines.commands.registeranswer;
+using flashcardbox.messages;
 using FluentAssertions;
 using nsimplemessagepump.contract;
 using Xunit;

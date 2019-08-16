@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using flashcardbox.events;
+using flashcardbox.backend.events;
+using flashcardbox.backend.pipelines.queries.duecard;
+using flashcardbox.messages;
 using flashcardbox.messages.queries;
-using flashcardbox.messages.queries.duecard;
 using FluentAssertions;
 using nsimpleeventstore;
 using Xunit;

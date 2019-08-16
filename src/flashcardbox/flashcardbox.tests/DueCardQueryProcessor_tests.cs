@@ -1,5 +1,6 @@
+using flashcardbox.backend.pipelines.queries.duecard;
+using flashcardbox.messages;
 using flashcardbox.messages.queries;
-using flashcardbox.messages.queries.duecard;
 using FluentAssertions;
 using Xunit;
 

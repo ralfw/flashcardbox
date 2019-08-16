@@ -1,6 +1,7 @@
-using flashcardbox.adapters;
-using flashcardbox.events;
-using flashcardbox.messages.commands.selectduecard;
+using flashcardbox.backend.adapters;
+using flashcardbox.backend.events;
+using flashcardbox.backend.pipelines.commands.selectduecard;
+using flashcardbox.messages;
 using FluentAssertions;
 using nsimpleeventstore;
 using nsimplemessagepump.contract;

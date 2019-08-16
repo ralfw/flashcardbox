@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
-using flashcardbox.adapters;
+using flashcardbox.backend.adapters;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;

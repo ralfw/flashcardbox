@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using flashcardbox.adapters;
-using flashcardbox.events;
-using flashcardbox.messages.commands.sync;
+using flashcardbox.backend.adapters;
+using flashcardbox.backend.events;
+using flashcardbox.backend.pipelines.commands.sync;
+using flashcardbox.messages;
 using FluentAssertions;
 using nsimpleeventstore;
 using Xunit;
