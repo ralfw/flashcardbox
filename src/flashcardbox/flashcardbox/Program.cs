@@ -1,4 +1,7 @@
 ﻿using System;
+using flashcardbox.backend.adapters;
+using flashcardbox.backend.integration;
+using nsimpleeventstore;
 
 namespace flashcardbox
 {
@@ -6,7 +9,10 @@ namespace flashcardbox
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var cli = new CLI(args);
+            var db = new FlashcardboxDb(cli.DbPath);
+            var es = new FilebasedEventstore(cli.EventstorePath);
+            var mh = new MessageHandling(es, db);
         }
     }
 }
