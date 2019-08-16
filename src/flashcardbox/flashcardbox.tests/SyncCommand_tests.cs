@@ -98,78 +98,47 @@ namespace flashcardbox.tests
                 new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[6].Id} 
             );
         }
-        
-        
+
+
         [Fact]
         public void Process_no_new_config_if_it_hasnt_changed()
         {
             const string BOX_PATH = "sampledb_sync_processing";
-            
-            var ctx = new SyncContextModel {
-                Flashcards = new Dictionary<string, (string binIndex, string hash)> {
-                    {"2", ("2", FlashcardHash.Calculate("unchanged q2","a2","t2"))},
-                    {"3", ("4", FlashcardHash.Calculate("q3","a3",""))}, // to be changed
+
+            var ctx = new SyncContextModel
+            {
+                Flashcards = new Dictionary<string, (string binIndex, string hash)>
+                {
+                    {"2", ("2", FlashcardHash.Calculate("unchanged q2", "a2", "t2"))},
+                    {"3", ("4", FlashcardHash.Calculate("q3", "a3", ""))}, // to be changed
                     {"99", ("3", "xyz")} // to be deleted
                 },
                 // no config will be registered because file and event do not differ
-                Config = new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin{
-                    LowerDueThreshold = 10,
-                    UpperDueThreshold = 20
-                }}}
+                Config = new FlashcardboxConfig
+                {
+                    Bins = new[]
+                    {
+                        new FlashcardboxConfig.Bin
+                        {
+                            LowerDueThreshold = 10,
+                            UpperDueThreshold = 20
+                        }
+                    }
+                }
             };
             var db = new FlashcardboxDb(BOX_PATH);
 
             var sut = new SyncProcessor(db);
-            
+
             File.Copy(Path.Combine(BOX_PATH, "flashcards original.csv"),
                 Path.Combine(BOX_PATH, "flashcards.csv"), true);
 
-            
+
             var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
 
-            
+
             Assert.IsType<Success>(status);
             events.Last().Should().BeOfType<CardFoundMissing>();
-        }
-        
-        
-        
-        [Fact]
-        public void Load_message_context()
-        {
-            var es = new InMemoryEventstore();
-            es.Record(new Event[]
-            {
-                new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 1,UpperDueThreshold = 2} }}, 
-                
-                new NewCardEncountered{Question = "q1", Answer = "a1", Tags = "t1", Id = "1"}, 
-                new CardMovedTo{CardId = "1", BinIndex = 0}, 
-                new NewCardEncountered{Question = "q2", Answer = "a2", Tags = "t2,t3", Id = "2"},
-                new CardMovedTo{CardId = "2", BinIndex = 3},
-                new NewCardEncountered{Question = "q3", Answer = "a3", Tags = "", Id = "3"},
-                new CardWasChanged{Question = "q1v2", Answer = "a1v2", Tags = "t1", CardId = "1"},
-                new CardMovedTo{CardId = "1", BinIndex = 2},
-                new CardFoundMissing{CardId = "3"}, 
-                
-                new BoxConfigured{Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10,UpperDueThreshold = 20} }}
-            });
-            var sut = new SyncContextManagement(es);
-            
-            
-            var result = sut.Load(new SyncCommand());
-
-            
-            var ctxModel = result.Ctx as SyncContextModel;
-            
-            ctxModel.Config.Should().BeEquivalentTo(new FlashcardboxConfig{Bins = new[]{new FlashcardboxConfig.Bin {
-                LowerDueThreshold = 10,
-                UpperDueThreshold = 20
-            }}});            
-            
-            ctxModel.Flashcards.Should().BeEquivalentTo(new Dictionary<string,(string binIndex, string hash)> {
-                {"1", ("2", FlashcardHash.Calculate("q1v2","a1v2","t1"))},
-                {"2", ("3", FlashcardHash.Calculate("q2", "a2", "t2,t3"))}
-            });
         }
     }
 }
