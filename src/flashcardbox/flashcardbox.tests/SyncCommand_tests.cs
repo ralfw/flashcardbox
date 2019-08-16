@@ -37,9 +37,15 @@ namespace flashcardbox.tests
 
             
             var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
-
             
-            Assert.IsType<Success>(status);
+            
+            status.Should().BeEquivalentTo(new SyncSuccess {
+                Added = 2,
+                Changed = 1,
+                Missing = 1,
+                TotalCount = 4
+            });
+            
             events.Should().BeEquivalentTo(new Event[]{
                 new NewCardEncountered{Question = "new q1", Answer = "a1", Tags = "t1", Id = events[0].Id}, 
                 new CardMovedTo{CardId = events[0].Id, BinIndex = 0, Id = events[1].Id}, 
@@ -93,7 +99,7 @@ namespace flashcardbox.tests
             var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
 
             
-            Assert.IsType<Success>(status);
+            Assert.IsType<SyncSuccess>(status);
             events.Last().Should().BeEquivalentTo(
                 new BoxConfigured{ Bins = new[]{new BoxConfigured.Bin{LowerDueThreshold = 10, UpperDueThreshold = 20}}, Id = events[6].Id} 
             );
@@ -137,7 +143,7 @@ namespace flashcardbox.tests
             var (status, events, version, notifications) = sut.Process(new SyncCommand(), ctx, "");
 
 
-            Assert.IsType<Success>(status);
+            Assert.IsType<SyncSuccess>(status);
             events.Last().Should().BeOfType<CardFoundMissing>();
         }
     }

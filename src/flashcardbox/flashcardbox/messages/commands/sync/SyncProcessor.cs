@@ -31,10 +31,21 @@ namespace flashcardbox.messages.commands.sync
         public (CommandStatus, Event[], string, Notification[]) Process(IMessage msg, IMessageContextModel ctx, string version) {
             var model = ctx as SyncContextModel;
 
-            var events0 = Sync_flashcards(model);
+            var events0 = Sync_flashcards(model).ToArray();
             var events1 = Sync_config(model);
 
-            return (new Success(), events0.Concat(events1).ToArray(), "", new Notification[0]);
+            return (Calculate_success_stats(), events0.Concat(events1).ToArray(), "", new Notification[0]);
+
+
+            SyncSuccess Calculate_success_stats() {
+                var stats = new SyncSuccess {
+                    Added = events0.Count(e => e is NewCardEncountered),
+                    Changed = events0.Count(e => e is CardWasChanged),
+                    Missing = events0.Count(e => e is CardFoundMissing),
+                };
+                stats.TotalCount = model.Flashcards.Count + stats.Added - stats.Missing;
+                return stats;
+            }
         }
 
         
