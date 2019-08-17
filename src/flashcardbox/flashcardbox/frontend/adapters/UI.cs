@@ -42,6 +42,10 @@ namespace flashcardbox
 
             var stats = string.Join(",", progress.Bins.Select(Map));
             Console.WriteLine($"Progress: {stats}");
+            
+            Console.Write("---Press SPACE to start learning---");
+            Console.ReadKey();
+            Console.WriteLine();
 
 
             string Map(ProgressQueryResult.Bin bin)
@@ -71,21 +75,30 @@ namespace flashcardbox
 
         
         private bool Test_card(DueCardFoundQueryResult card) {
+            Console.Clear();
             Console.WriteLine();
             Console.WriteLine($"[");
             Console.WriteLine(card.Question);
             Console.WriteLine($"]@{card.BinIndex}");
-            Console.Write("---SPACE to show answer---");
+            Console.Write("---Press SPACE to show answer---");
             Console.ReadKey();
             Console.WriteLine();
+            
             Console.WriteLine("[");
             Console.WriteLine(card.Answer);
             Console.WriteLine($"]#{card.Tags}");
-            
-            Console.Write("---Did you know the answer? (y/n) ");
-            var reply = Console.ReadKey().Key;
-            Console.WriteLine();
-            return reply == ConsoleKey.Y || reply == ConsoleKey.J || reply == ConsoleKey.Spacebar;
+
+            while (true) {
+                Console.Write("---Did you know the answer? (y/n) ");
+                var reply = Console.ReadKey().Key;
+                switch (reply) {
+                    case ConsoleKey.Y:
+                        return true;
+                    case ConsoleKey.N:
+                        return false;
+                }
+                Console.WriteLine();
+            }
         }
         
         
