@@ -337,7 +337,7 @@ namespace flashcardbox.tests
         }
         
         [Fact]
-        public void Config_defines_fewer_bin_than_have_been_filled()
+        public void Config_defines_fewer_bins_than_have_been_filled()
         {
             var sut = new SelectDueCardProcessor();
             var ctx = new SelectDueCardContextModel

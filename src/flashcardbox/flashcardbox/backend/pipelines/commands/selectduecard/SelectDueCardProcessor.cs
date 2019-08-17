@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using flashcardbox.backend.events;
@@ -87,7 +88,7 @@ namespace flashcardbox.backend.pipelines.commands.selectduecard
 
 
         private static Event[] Select_first_bin_with_cards(SelectDueCardContextModel model) {
-            for(var i=1; i<model.Bins.Length-1; i++)
+            for(var i=1; i < Math.Min(model.Bins.Length-1,model.Config.Bins.Length+1); i++)
                 if (model.Bins[i].Length > 0)
                     return new[] {new DueCardSelected {CardId = model.Bins[i].First(), BinIndex = i}};
             return new Event[0];
