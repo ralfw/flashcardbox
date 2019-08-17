@@ -1,0 +1,2 @@
+cd "/Users/ralfw/Projects/06 entwicklungen/flashcardbox.github/src/flashcardbox/flashcardbox/bin/Debug/netcoreapp2.2"
+dotnet flashcardbox.dll "/Users/ralfw/Dropbox/02 Bibliothek/Bücher/Sachbuch/Sprachen/Bulgarisch/Flashcardbox"
