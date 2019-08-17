@@ -14,7 +14,15 @@
 
     <ItemGroup>
       <Folder Include="backend" />
-      <Folder Include="frontend" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="sample_bulgarian_numbers\flashcardbox.config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="sample_bulgarian_numbers\flashcards.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

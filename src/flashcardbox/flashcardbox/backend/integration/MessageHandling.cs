@@ -12,7 +12,7 @@ using nsimplemessagepump.contract;
 
 namespace flashcardbox.backend.integration
 {
-    public class MessageHandling
+    public class MessageHandling : IMessageHandling
     {
         private readonly MessagePump _mp;
         
