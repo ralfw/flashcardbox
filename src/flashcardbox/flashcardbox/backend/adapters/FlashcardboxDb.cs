@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using CsvHelper;
 
 namespace flashcardbox.backend.adapters
@@ -57,7 +58,7 @@ namespace flashcardbox.backend.adapters
         public void StoreFlashcards(IEnumerable<FlashcardRecord> records)
         {
             var filepath = Path.Combine(_path, FLASHCARDS_FILENAME);
-            using (var writer = new StreamWriter(filepath)) {
+            using (var writer = new StreamWriter(filepath, false, Encoding.UTF8)) {
                 writer.WriteLine($"Question;Answer;Tags;BinIndex;Id");
                 foreach (var r in records)
                     writer.WriteLine($"\"{r.Question}\";\"{r.Answer}\";{r.Tags};{r.BinIndex};{r.Id}");
