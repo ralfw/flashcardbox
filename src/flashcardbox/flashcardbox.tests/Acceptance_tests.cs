@@ -2,17 +2,10 @@ using System.IO;
 using System.Linq;
 using flashcardbox.backend.adapters;
 using flashcardbox.backend.integration;
-using flashcardbox.backend.pipelines.commands.registeranswer;
-using flashcardbox.backend.pipelines.commands.selectduecard;
-using flashcardbox.backend.pipelines.commands.sync;
-using flashcardbox.backend.pipelines.queries.duecard;
-using flashcardbox.backend.pipelines.queries.progress;
-using flashcardbox.messages;
 using flashcardbox.messages.commands;
 using flashcardbox.messages.queries;
 using FluentAssertions;
 using nsimpleeventstore;
-using nsimplemessagepump;
 using nsimplemessagepump.contract;
 using Xunit;
 using Xunit.Abstractions;
@@ -338,7 +331,6 @@ namespace flashcardbox.tests
                 card.Question.Should().Be(question);
             }
         }
-        
         
 
         private void DumpProgress(MessageHandling mh)

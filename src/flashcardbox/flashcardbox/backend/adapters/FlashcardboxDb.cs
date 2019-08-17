@@ -43,14 +43,16 @@ namespace flashcardbox.backend.adapters
                 csv.ReadHeader(); // parse (badly named method!)
                 // after this the column names are known an get used for field access
 
-                while (csv.Read())
-                    yield return new FlashcardRecord {
+                while (csv.Read()) {
+                    yield return new FlashcardRecord
+                    {
                         Id = csv.GetField("Id"),
                         Question = csv.GetField("Question"),
                         Answer = csv.GetField("Answer"),
                         Tags = csv.GetField("Tags"),
                         BinIndex = csv.GetField("BinIndex")
                     };
+                }
             }
         }
 
@@ -61,7 +63,7 @@ namespace flashcardbox.backend.adapters
             using (var writer = new StreamWriter(filepath, false, Encoding.UTF8)) {
                 writer.WriteLine($"Question;Answer;Tags;BinIndex;Id");
                 foreach (var r in records)
-                    writer.WriteLine($"\"{r.Question}\";\"{r.Answer}\";{r.Tags};{r.BinIndex};{r.Id}");
+                    writer.WriteLine($"\"{r.Question.Escape()}\";\"{r.Answer.Escape()}\";{r.Tags.Escape()};{r.BinIndex};{r.Id}");
             }
         }
         
@@ -74,5 +76,12 @@ namespace flashcardbox.backend.adapters
             var config = Newtonsoft.Json.JsonConvert.DeserializeObject<FlashcardboxConfig>(configJson);
             return config.Bins.Length == 0 ? DEFAULT_FLASHCARDBOX_CONFIG : config;
         }
+    }
+    
+    
+    static class CsvExportExtensions
+    {
+        public static string Escape(this string text)
+            => text.Replace("\"", "\"\"").Replace(";", ",");
     }
 }

@@ -1,7 +1,9 @@
 ﻿Question;Answer;Tags;BinIndex;Id
 a;aa;letters;;
-1;11;digits;;
-2;22;digits;;
+1;един;digits;;
+2;"два 
+или 
+две";digits;;
 b;bb;letters;;
 c;cc;letters;;
 d;dd;;;
