@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace spikes
 {
-    public class UnitTest1
+    public class ExcelAPI
     {
         public class FlashcardRecord {
             public string Id { get; set; }
@@ -23,14 +23,14 @@ namespace spikes
         
         private readonly ITestOutputHelper _testOutputHelper;
 
-        public UnitTest1(ITestOutputHelper testOutputHelper)
+        public ExcelAPI(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
         }
 
         
         [Fact]
-        public void Test1()
+        public void Read_write_xlsx()
         {
             using (var wb = new XLWorkbook("flashcards.xlsx"))
             {
